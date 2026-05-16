@@ -789,6 +789,68 @@
   }
   .day-del-btn:hover { background: rgba(255,92,92,0.08); border-color: rgba(255,92,92,0.5); }
   .day-view-only { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-align: center; margin-top: 10px; }
+
+  /* Schedule edit button */
+  .sched-edit-btn {
+    font-family: var(--font-mono); font-size: 10px; padding: 3px 9px;
+    border-radius: 4px; border: 1px solid var(--border2); background: transparent;
+    color: var(--muted); cursor: pointer; transition: all 0.15s;
+  }
+  .sched-edit-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+  /* Confirm modal */
+  .confirm-modal {
+    background: var(--bg2); border: 1px solid var(--border2); border-radius: 14px;
+    padding: 28px; width: 360px; max-width: 95vw; position: relative; text-align: center;
+  }
+  .confirm-modal .confirm-icon { font-size: 32px; margin-bottom: 12px; }
+  .confirm-modal h3 { font-family: var(--font-display); font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .confirm-modal p { font-family: var(--font-mono); font-size: 11px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+  .confirm-btns { display: flex; gap: 10px; }
+  .confirm-yes {
+    flex: 1; padding: 11px; background: var(--accent-dim2); border: 1px solid rgba(0,255,136,0.3);
+    border-radius: 8px; color: var(--accent); font-family: var(--font-mono); font-size: 12px;
+    font-weight: 700; cursor: pointer; transition: all 0.2s;
+  }
+  .confirm-yes:hover { background: rgba(0,255,136,0.25); }
+  .confirm-no {
+    flex: 1; padding: 11px; background: transparent; border: 1px solid var(--border2);
+    border-radius: 8px; color: var(--muted); font-family: var(--font-mono); font-size: 12px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .confirm-no:hover { border-color: var(--border2); color: var(--text); }
+
+  /* Schedule edit modal */
+  .sched-edit-modal {
+    background: var(--bg2); border: 1px solid var(--border2); border-radius: 16px;
+    padding: 28px; width: 520px; max-width: 95vw; max-height: 88vh; overflow-y: auto; position: relative;
+  }
+  .sched-edit-modal h2 { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .sched-edit-modal .se-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+  .se-block { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .se-block-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .se-color-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .se-block-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .se-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .se-row.full { grid-template-columns: 1fr; }
+  .se-field-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+  .se-input {
+    width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px;
+    padding: 8px 10px; font-family: var(--font-mono); font-size: 12px; color: var(--text); outline: none; transition: border-color 0.2s;
+  }
+  .se-input:focus { border-color: var(--accent); }
+  .se-save-btn {
+    width: 100%; margin-top: 16px; padding: 11px; background: var(--accent-dim2);
+    border: 1px solid rgba(0,255,136,0.3); border-radius: 8px; color: var(--accent);
+    font-family: var(--font-mono); font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+  }
+  .se-save-btn:hover { background: rgba(0,255,136,0.22); }
+  .se-reset-btn {
+    width: 100%; margin-top: 8px; padding: 9px; background: transparent;
+    border: 1px solid var(--border2); border-radius: 8px; color: var(--muted);
+    font-family: var(--font-mono); font-size: 11px; cursor: pointer; transition: all 0.2s;
+  }
+  .se-reset-btn:hover { color: var(--text); border-color: var(--border2); }
 </style>
 </head>
 <body>
@@ -957,40 +1019,12 @@
       <div class="sched-panel">
         <div class="panel-header">
           <span class="panel-title">// Today's Schedule</span>
-          <span class="panel-date">10 HRS TOTAL</span>
-        </div>
-        <div class="sched-item">
-          <div class="sched-dot" style="background:#ff9a3c"></div>
-          <div class="sched-content">
-            <div class="sched-name">Java + Extra Learning</div>
-            <div class="sched-time">8:30 AM – 12:30 PM</div>
-            <div class="sched-dur" style="color:#ff9a3c">4 hours</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="panel-date" id="schedTotalHrs">10 HRS TOTAL</span>
+            <button class="sched-edit-btn" onclick="openSchedConfirm()">✎ Edit</button>
           </div>
         </div>
-        <div class="sched-item">
-          <div class="sched-dot" style="background:#4fa3e0"></div>
-          <div class="sched-content">
-            <div class="sched-name">SQL</div>
-            <div class="sched-time">1:00 PM – 3:00 PM</div>
-            <div class="sched-dur" style="color:#4fa3e0">2 hours</div>
-          </div>
-        </div>
-        <div class="sched-item">
-          <div class="sched-dot" style="background:#00ff88"></div>
-          <div class="sched-content">
-            <div class="sched-name">DSA</div>
-            <div class="sched-time">5:00 PM – 8:00 PM</div>
-            <div class="sched-dur" style="color:#00ff88">3 hours</div>
-          </div>
-        </div>
-        <div class="sched-item">
-          <div class="sched-dot" style="background:#c084fc"></div>
-          <div class="sched-content">
-            <div class="sched-name">System Design</div>
-            <div class="sched-time">9:00 PM – 10:00 PM</div>
-            <div class="sched-dur" style="color:#c084fc">1 hour</div>
-          </div>
-        </div>
+        <div id="schedList"></div>
       </div>
     </div>
   </div>
@@ -1062,6 +1096,32 @@
         <span class="streak-row-val" id="mToday">0%</span>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Schedule Edit Confirm Modal -->
+<div class="modal-overlay" id="schedConfirmModal">
+  <div class="confirm-modal">
+    <button class="modal-close" onclick="closeSchedConfirm()" style="position:absolute;top:14px;right:14px">✕</button>
+    <div class="confirm-icon">✏️</div>
+    <h3>Edit Schedule?</h3>
+    <p>You're about to edit your daily study schedule. Changes will update the schedule panel and task names across the tracker.</p>
+    <div class="confirm-btns">
+      <button class="confirm-no" onclick="closeSchedConfirm()">Cancel</button>
+      <button class="confirm-yes" onclick="closeSchedConfirm();openSchedEditor()">Yes, Edit Schedule</button>
+    </div>
+  </div>
+</div>
+
+<!-- Schedule Editor Modal -->
+<div class="modal-overlay" id="schedEditModal">
+  <div class="sched-edit-modal">
+    <button class="modal-close" onclick="closeSchedEditor()">✕</button>
+    <h2>Edit <span style="color:var(--accent)">Schedule</span></h2>
+    <div class="se-sub">Customize your 4 daily study blocks — name, time, duration & description.</div>
+    <div id="seBlocks"></div>
+    <button class="se-save-btn" onclick="saveSchedule()">⬡ Save Schedule</button>
+    <button class="se-reset-btn" onclick="resetSchedule()">↺ Reset to Default</button>
   </div>
 </div>
 
@@ -1170,6 +1230,7 @@ function markDayComplete() {
   state.heatmap[key] = level;
 
   let hrs = 0;
+  const TASK_HOURS = getTaskHours();
   state.tasks.forEach((v, i) => { if(v) hrs += TASK_HOURS[i]; });
 
   const yesterday = new Date();
@@ -1254,14 +1315,23 @@ function renderHeatmap() {
   monthLabels.innerHTML = '';
 
   const today = new Date();
-  const start = new Date(today);
-  start.setDate(start.getDate() - 364);
-  start.setDate(start.getDate() - start.getDay());
+  const todayStr = todayKey();
+  const year = today.getFullYear();
+
+  // Always start from Jan 1 of current year, aligned to Sunday
+  const jan1 = new Date(year, 0, 1);
+  const startOffset = jan1.getDay(); // 0=Sun, push back so Jan 1 lands in correct column
+  const start = new Date(jan1);
+  start.setDate(jan1.getDate() - startOffset);
+
+  // How many weeks needed to cover Jan 1 → Dec 31
+  const dec31 = new Date(year, 11, 31);
+  const totalDays = Math.ceil((dec31 - start) / 86400000) + 1;
+  const totalWeeks = Math.ceil(totalDays / 7);
 
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  let currentMonth = -1;
+  const monthPositions = {}; // track first week index per month for labels
 
-  const totalWeeks = 53;
   for (let w = 0; w < totalWeeks; w++) {
     const col = document.createElement('div');
     col.className = 'heatmap-col';
@@ -1273,33 +1343,72 @@ function renderHeatmap() {
       const cell = document.createElement('div');
       cell.className = 'heatmap-cell';
 
+      // Grey out days outside current year
+      if (date.getFullYear() !== year) {
+        cell.style.opacity = '0.2';
+        cell.style.pointerEvents = 'none';
+        col.appendChild(cell);
+        continue;
+      }
+
+      // Mark today with a ring
       const key = date.toISOString().slice(0, 10);
+      if (key === todayStr) {
+        cell.style.outline = '1.5px solid rgba(0,255,136,0.7)';
+        cell.style.outlineOffset = '1px';
+      }
+
       const level = state.heatmap[key] || 0;
       if (level > 0) cell.classList.add('l' + level);
 
-      const dateStr = date.toLocaleDateString('en', {month:'short', day:'numeric', year:'numeric'});
-      const lvlTxt = ['No activity','Low','Moderate','High','Full completion'];
-      cell.title = dateStr + ' — ' + lvlTxt[level] + ' (click to view/edit)';
+      // Future days — slightly muted, no pointer
+      const isFuture = date > today;
+      if (isFuture && key !== todayStr) {
+        cell.style.opacity = '0.3';
+        cell.style.cursor = 'default';
+      }
 
-      const capturedKey = key;
-      const capturedDateStr = dateStr;
-      cell.addEventListener('click', () => openDayModal(capturedKey, capturedDateStr));
+      const dateStr = date.toLocaleDateString('en', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
+      const lvlTxt = ['No entry','Low activity','Moderate','High','Full completion'];
+      const hasEntry = state.heatmap[key] > 0;
+
+      if (!isFuture || key === todayStr) {
+        cell.title = dateStr + ' — ' + lvlTxt[level] + (hasEntry ? ' · click to edit' : ' · no entry');
+        const capturedKey = key;
+        const capturedDateStr = dateStr;
+        cell.addEventListener('click', () => {
+          if (state.heatmap[capturedKey] > 0) {
+            openDayModal(capturedKey, capturedDateStr);
+          } else if (capturedKey === todayKey()) {
+            openDayModal(capturedKey, capturedDateStr);
+          } else {
+            showToast('⚠ No entry for ' + capturedDateStr + '. Complete that day first.');
+          }
+        });
+      }
 
       col.appendChild(cell);
 
-      if (d === 0 && date.getMonth() !== currentMonth) {
-        currentMonth = date.getMonth();
-        const lbl = document.createElement('div');
-        lbl.className = 'month-label';
-        lbl.style.marginLeft = (w * 16) + 'px';
-        lbl.textContent = months[currentMonth];
-        if (w === 0) lbl.style.marginLeft = '0';
-        monthLabels.appendChild(lbl);
+      // Month label: first day of month in that week
+      if (date.getDate() === 1) {
+        monthPositions[w] = date.getMonth();
       }
     }
 
     grid.appendChild(col);
   }
+
+  // Render month labels
+  Object.keys(monthPositions).forEach(w => {
+    const lbl = document.createElement('div');
+    lbl.className = 'month-label';
+    lbl.style.position = 'absolute';
+    lbl.style.left = (parseInt(w) * 16) + 'px';
+    lbl.textContent = months[monthPositions[w]];
+    monthLabels.appendChild(lbl);
+  });
+  monthLabels.style.position = 'relative';
+  monthLabels.style.height = '14px';
 }
 
 function openPreview() {
@@ -1366,7 +1475,6 @@ function restoreBackup() {
   }).catch(() => showToast('✗ Restore failed — check token'));
 }
 
-// ── History Modal ──────────────────────────────────
 const TASK_NAMES = ['Java + Extra Learning', 'SQL', 'DSA', 'System Design'];
 const TASK_TIMES = ['8:30–12:30', '1:00–3:00', '5:00–8:00', '9:00–10:00'];
 const BADGE_COLORS = [
@@ -1376,6 +1484,17 @@ const BADGE_COLORS = [
   {color:'#c084fc',border:'rgba(192,132,252,0.35)',bg:'rgba(192,132,252,0.08)'}
 ];
 const LEVEL_COLORS = ['#1a2230','#0d3320','#1a5c3a','#00cc6a','#00ff88'];
+
+function getTaskHours() {
+  const sched = getSchedule();
+  return sched.map(s => Number(s.hours));
+}
+function getTaskNames() { return getSchedule().map(s => s.name); }
+function getTaskTimes() { return getSchedule().map(s => s.timeStart.replace(' AM','').replace(' PM','') + '–' + s.timeEnd.replace(' AM','').replace(' PM','')); }
+function getTaskColors() {
+  const sched = getSchedule();
+  return sched.map(s => ({ color: s.color, border: s.color.replace('#','rgba(') + ',0.35)', bg: s.color.replace('#','rgba(') + ',0.1)' }));
+}
 
 function openHistory() {
   renderHistoryList();
@@ -1421,13 +1540,18 @@ function renderHistoryList() {
     const dateObj = new Date(key + 'T00:00:00');
     const dateStr = dateObj.toLocaleDateString('en', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
     const hrs = entry.hours || 0;
+    const names = getTaskNames();
+    const sched = getSchedule();
+    const abbrs = names.map(n => n.split(/[\s+]/)[0].slice(0,4));
 
-    const taskTags = TASK_NAMES.map((name, i) => {
+    const taskTags = names.map((name, i) => {
       const done = entry.tasks && entry.tasks[i];
-      const c = BADGE_COLORS[i];
-      const abbr = ['Java','SQL','DSA','SysD'][i];
-      if (!done) return `<span class="hist-tag" style="color:${c.color};border-color:${c.border};background:${c.bg};opacity:0.35">${abbr}</span>`;
-      return `<span class="hist-tag" style="color:${c.color};border-color:${c.border};background:${c.bg}">${abbr}</span>`;
+      const color = sched[i] ? sched[i].color : '#888';
+      const abbr = abbrs[i];
+      const border = color + '55';
+      const bg = color + '1a';
+      if (!done) return `<span class="hist-tag" style="color:${color};border-color:${border};background:${bg};opacity:0.35">${abbr}</span>`;
+      return `<span class="hist-tag" style="color:${color};border-color:${border};background:${bg}">${abbr}</span>`;
     }).join('');
 
     const isToday = key === todayKey();
@@ -1478,9 +1602,13 @@ function openDayModal(key, dateStr) {
 
 function renderDayTaskRows() {
   const wrap = document.getElementById('dayTaskRows');
-  wrap.innerHTML = TASK_NAMES.map((name, i) => {
+  const names = getTaskNames();
+  const times = getTaskTimes();
+  const hours = getTaskHours();
+  const sched = getSchedule();
+  wrap.innerHTML = names.map((name, i) => {
     const done = editTasks[i];
-    const c = BADGE_COLORS[i];
+    const color = sched[i] ? sched[i].color : '#00ff88';
     return `<div class="day-task-row${done ? ' day-done' : ''}" onclick="toggleDayTask(${i})">
       <div class="day-check">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -1488,7 +1616,7 @@ function renderDayTaskRows() {
         </svg>
       </div>
       <div class="day-task-name">${name}</div>
-      <div class="day-task-time" style="color:${c.color}">${TASK_TIMES[i]} · ${TASK_HOURS[i]}h</div>
+      <div class="day-task-time" style="color:${color}">${times[i]} · ${hours[i]}h</div>
     </div>`;
   }).join('');
 }
@@ -1506,6 +1634,7 @@ function saveDayEntry() {
   const done = editTasks.filter(Boolean).length;
   const level = done === 4 ? 4 : done >= 3 ? 3 : done >= 2 ? 2 : done >= 1 ? 1 : 0;
   let hrs = 0;
+  const TASK_HOURS = getTaskHours();
   editTasks.forEach((v, i) => { if(v) hrs += TASK_HOURS[i]; });
 
   const note = document.getElementById('dayNote').value;
@@ -1629,10 +1758,144 @@ document.getElementById('dayModal').addEventListener('click', function(e) {
   if (e.target === this) closeDayModal();
 });
 
+// ── Schedule System ────────────────────────────────
+const DEFAULT_SCHEDULE = [
+  { name: 'Java + Extra Learning', timeStart: '8:30 AM', timeEnd: '12:30 PM', hours: 4, desc: 'Core Java, Advanced Java, APIs, Frameworks', color: '#ff9a3c' },
+  { name: 'SQL', timeStart: '1:00 PM', timeEnd: '3:00 PM', hours: 2, desc: 'Queries, Joins, Subqueries, PL/SQL, Optimization', color: '#4fa3e0' },
+  { name: 'DSA', timeStart: '5:00 PM', timeEnd: '8:00 PM', hours: 3, desc: 'Arrays, Trees, Graphs, DP, Problem Solving', color: '#00ff88' },
+  { name: 'System Design', timeStart: '9:00 PM', timeEnd: '10:00 PM', hours: 1, desc: 'Scalability, Distributed Systems, Caching', color: '#c084fc' }
+];
+
+function getSchedule() {
+  if (!state.schedule || !state.schedule.length) return DEFAULT_SCHEDULE;
+  return state.schedule;
+}
+
+function renderSchedPanel() {
+  const sched = getSchedule();
+  const list = document.getElementById('schedList');
+  if (!list) return;
+  const totalHrs = sched.reduce((s, x) => s + Number(x.hours), 0);
+  document.getElementById('schedTotalHrs').textContent = totalHrs + ' HRS TOTAL';
+
+  list.innerHTML = sched.map(s => `
+    <div class="sched-item">
+      <div class="sched-dot" style="background:${s.color}"></div>
+      <div class="sched-content">
+        <div class="sched-name">${s.name}</div>
+        <div class="sched-time">${s.timeStart} – ${s.timeEnd}</div>
+        <div class="sched-dur" style="color:${s.color}">${s.hours} hour${s.hours != 1 ? 's' : ''}</div>
+      </div>
+    </div>`).join('');
+
+  // Also sync task panel names/meta with schedule
+  syncTaskNamesFromSchedule(sched);
+}
+
+function syncTaskNamesFromSchedule(sched) {
+  sched.forEach((s, i) => {
+    const nameEl = document.querySelector('#task-' + i + ' .task-name');
+    const metaEl = document.querySelector('#task-' + i + ' .task-meta');
+    const badgeEl = document.querySelector('#task-' + i + ' .task-badge');
+    if (nameEl) nameEl.textContent = s.name;
+    if (metaEl) metaEl.textContent = s.timeStart + ' – ' + s.timeEnd + ' · ' + s.desc;
+    if (badgeEl) badgeEl.textContent = s.hours + ' HR' + (s.hours != 1 ? 'S' : '');
+  });
+}
+
+function openSchedConfirm() {
+  document.getElementById('schedConfirmModal').classList.add('show');
+}
+function closeSchedConfirm() {
+  document.getElementById('schedConfirmModal').classList.remove('show');
+}
+document.getElementById('schedConfirmModal').addEventListener('click', function(e) {
+  if (e.target === this) closeSchedConfirm();
+});
+
+function openSchedEditor() {
+  const sched = getSchedule();
+  const wrap = document.getElementById('seBlocks');
+  wrap.innerHTML = sched.map((s, i) => `
+    <div class="se-block">
+      <div class="se-block-header">
+        <div class="se-color-dot" style="background:${s.color}"></div>
+        <span class="se-block-label">Block ${i+1}</span>
+      </div>
+      <div class="se-row full">
+        <div>
+          <div class="se-field-label">Subject Name</div>
+          <input class="se-input" id="se-name-${i}" value="${s.name}" placeholder="e.g. Java + Extra Learning" />
+        </div>
+      </div>
+      <div class="se-row">
+        <div>
+          <div class="se-field-label">Start Time</div>
+          <input class="se-input" id="se-start-${i}" value="${s.timeStart}" placeholder="8:30 AM" />
+        </div>
+        <div>
+          <div class="se-field-label">End Time</div>
+          <input class="se-input" id="se-end-${i}" value="${s.timeEnd}" placeholder="12:30 PM" />
+        </div>
+      </div>
+      <div class="se-row">
+        <div>
+          <div class="se-field-label">Duration (hours)</div>
+          <input class="se-input" id="se-hrs-${i}" type="number" min="0.5" max="12" step="0.5" value="${s.hours}" />
+        </div>
+        <div>
+          <div class="se-field-label">Accent Color</div>
+          <input class="se-input" id="se-color-${i}" type="color" value="${s.color}" style="height:36px;padding:2px 6px;cursor:pointer" />
+        </div>
+      </div>
+      <div class="se-row full">
+        <div>
+          <div class="se-field-label">Description / Topics</div>
+          <input class="se-input" id="se-desc-${i}" value="${s.desc}" placeholder="Topics covered..." />
+        </div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('schedEditModal').classList.add('show');
+}
+
+function closeSchedEditor() {
+  document.getElementById('schedEditModal').classList.remove('show');
+}
+document.getElementById('schedEditModal').addEventListener('click', function(e) {
+  if (e.target === this) closeSchedEditor();
+});
+
+function saveSchedule() {
+  const sched = getSchedule();
+  const newSched = sched.map((s, i) => ({
+    name: document.getElementById('se-name-' + i).value.trim() || s.name,
+    timeStart: document.getElementById('se-start-' + i).value.trim() || s.timeStart,
+    timeEnd: document.getElementById('se-end-' + i).value.trim() || s.timeEnd,
+    hours: parseFloat(document.getElementById('se-hrs-' + i).value) || s.hours,
+    desc: document.getElementById('se-desc-' + i).value.trim() || s.desc,
+    color: document.getElementById('se-color-' + i).value || s.color
+  }));
+  state.schedule = newSched;
+  saveState();
+  renderSchedPanel();
+  closeSchedEditor();
+  showToast('✓ Schedule updated successfully!');
+}
+
+function resetSchedule() {
+  state.schedule = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE));
+  saveState();
+  renderSchedPanel();
+  closeSchedEditor();
+  showToast('↺ Schedule reset to default');
+}
+
 // Init
 loadState();
 renderAll();
 renderHeatmap();
+renderSchedPanel();
 </script>
 </body>
 </html>
