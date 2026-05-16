@@ -38,7 +38,6 @@
     overflow-x: hidden;
   }
 
-  /* Grid lines bg */
   body::before {
     content: '';
     position: fixed;
@@ -59,7 +58,6 @@
     z-index: 1;
   }
 
-  /* Header */
   .header {
     display: flex;
     align-items: center;
@@ -78,9 +76,7 @@
     line-height: 1.1;
   }
 
-  .header-left h1 span {
-    color: var(--accent);
-  }
+  .header-left h1 span { color: var(--accent); }
 
   .header-left p {
     font-family: var(--font-mono);
@@ -90,11 +86,7 @@
     letter-spacing: 0.5px;
   }
 
-  .header-right {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
+  .header-right { display: flex; gap: 10px; align-items: center; }
 
   .btn {
     font-family: var(--font-mono);
@@ -120,7 +112,6 @@
 
   .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); color: #000; }
 
-  /* Stats row */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -181,7 +172,6 @@
     margin-top: 4px;
   }
 
-  /* Main grid */
   .main-grid {
     display: grid;
     grid-template-columns: 1fr 340px;
@@ -189,7 +179,6 @@
     margin-bottom: 16px;
   }
 
-  /* Tasks panel */
   .panel {
     background: var(--card);
     border: 1px solid var(--border);
@@ -219,7 +208,6 @@
     color: var(--accent);
   }
 
-  /* Progress bar */
   .progress-wrap {
     padding: 14px 20px;
     border-bottom: 1px solid var(--border);
@@ -232,18 +220,8 @@
     margin-bottom: 8px;
   }
 
-  .progress-label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .progress-pct {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--accent);
-    font-weight: 700;
-  }
+  .progress-label { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  .progress-pct { font-family: var(--font-mono); font-size: 12px; color: var(--accent); font-weight: 700; }
 
   .progress-track {
     height: 4px;
@@ -260,7 +238,6 @@
     box-shadow: 0 0 8px rgba(0,255,136,0.5);
   }
 
-  /* Task items */
   .task-list { padding: 8px 0; }
 
   .task-item {
@@ -287,11 +264,7 @@
     transition: all 0.2s;
   }
 
-  .task-item.done .task-check {
-    background: var(--accent);
-    border-color: var(--accent);
-  }
-
+  .task-item.done .task-check { background: var(--accent); border-color: var(--accent); }
   .task-check svg { display: none; }
   .task-item.done .task-check svg { display: block; }
 
@@ -305,12 +278,7 @@
     margin-bottom: 2px;
   }
 
-  .task-meta {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.3px;
-  }
+  .task-meta { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.3px; }
 
   .task-badge {
     font-family: var(--font-mono);
@@ -326,10 +294,7 @@
   .badge-dsa { color: var(--accent); border-color: rgba(0,255,136,0.3); background: var(--accent-dim); }
   .badge-sys { color: #c084fc; border-color: rgba(192,132,252,0.3); background: rgba(192,132,252,0.08); }
 
-  .mark-btn-wrap {
-    padding: 16px 20px;
-    border-top: 1px solid var(--border);
-  }
+  .mark-btn-wrap { padding: 16px 20px; border-top: 1px solid var(--border); }
 
   .mark-btn {
     width: 100%;
@@ -350,7 +315,6 @@
   .mark-btn:hover { background: rgba(0,255,136,0.2); box-shadow: 0 0 16px rgba(0,255,136,0.15); }
   .mark-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* Right panel - mini analytics */
   .right-col { display: flex; flex-direction: column; gap: 14px; }
 
   .streak-panel {
@@ -370,44 +334,14 @@
   }
 
   .streak-fire { color: #ff5c5c; }
-
-  .streak-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 4px;
-  }
-
-  .streak-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 16px 0;
-  }
-
+  .streak-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .streak-divider { height: 1px; background: var(--border); margin: 16px 0; }
   .streak-rows { display: flex; flex-direction: column; gap: 10px; }
 
-  .streak-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  .streak-row { display: flex; justify-content: space-between; align-items: center; }
+  .streak-row-label { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  .streak-row-val { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--text); }
 
-  .streak-row-label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .streak-row-val {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  /* Year progress ring */
   .year-panel {
     background: var(--card);
     border: 1px solid var(--border);
@@ -437,7 +371,6 @@
   .year-sub { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--text); margin-top: 4px; }
   .year-subsub { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
 
-  /* Schedule mini */
   .sched-panel {
     background: var(--card);
     border: 1px solid var(--border);
@@ -456,20 +389,12 @@
 
   .sched-item:last-child { border-bottom: none; }
 
-  .sched-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    margin-right: 12px;
-    margin-top: 4px;
-    flex-shrink: 0;
-  }
-
+  .sched-dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 12px; margin-top: 4px; flex-shrink: 0; }
   .sched-content { flex: 1; }
   .sched-name { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--text); }
   .sched-time { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 1px; }
   .sched-dur { font-family: var(--font-mono); font-size: 10px; font-weight: 700; margin-top: 2px; }
 
-  /* Heatmap */
   .heatmap-panel {
     background: var(--card);
     border: 1px solid var(--border);
@@ -485,12 +410,7 @@
     margin-bottom: 16px;
   }
 
-  .heatmap-grid {
-    display: flex;
-    gap: 3px;
-    overflow: hidden;
-  }
-
+  .heatmap-grid { display: flex; gap: 3px; overflow: hidden; }
   .heatmap-col { display: flex; flex-direction: column; gap: 3px; }
 
   .heatmap-cell {
@@ -508,6 +428,17 @@
   .heatmap-cell.l3 { background: #00cc6a; }
   .heatmap-cell.l4 { background: var(--accent); box-shadow: 0 0 4px rgba(0,255,136,0.6); }
 
+  /* ── NEW: empty past day — subtle dashed ring to hint it's clickable ── */
+  .heatmap-cell.past-empty {
+    background: #1a2230;
+    outline: 1px dashed rgba(255,255,255,0.12);
+    outline-offset: 1px;
+  }
+  .heatmap-cell.past-empty:hover {
+    outline-color: rgba(0,255,136,0.5);
+    background: rgba(0,255,136,0.06);
+  }
+
   .heatmap-legend {
     display: flex;
     align-items: center;
@@ -519,13 +450,7 @@
   .legend-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
   .legend-cell { width: 11px; height: 11px; border-radius: 2px; }
 
-  /* Month labels */
-  .month-labels {
-    display: flex;
-    gap: 3px;
-    margin-bottom: 4px;
-    padding-left: 0;
-  }
+  .month-labels { display: flex; gap: 3px; margin-bottom: 4px; padding-left: 0; }
 
   .month-label {
     font-family: var(--font-mono);
@@ -536,7 +461,6 @@
     white-space: nowrap;
   }
 
-  /* Modal overlay */
   .modal-overlay {
     display: none;
     position: fixed;
@@ -560,14 +484,7 @@
     position: relative;
   }
 
-  .modal h2 {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    color: var(--text);
-  }
-
+  .modal h2 { font-family: var(--font-display); font-size: 20px; font-weight: 800; margin-bottom: 20px; color: var(--text); }
   .modal h2 span { color: var(--accent); }
 
   .modal-close {
@@ -586,11 +503,7 @@
 
   .modal-close:hover { border-color: var(--accent); color: var(--accent); }
 
-  .modal-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+  .modal-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
   .modal-stat {
     background: var(--card);
@@ -599,28 +512,12 @@
     padding: 14px;
   }
 
-  .modal-stat-val {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--accent);
-    line-height: 1;
-  }
-
+  .modal-stat-val { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1; }
   .modal-stat-val.fire { color: #ff5c5c; }
   .modal-stat-val.blue { color: #4fa3e0; }
   .modal-stat-val.amber { color: #ffb547; }
+  .modal-stat-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; }
 
-  .modal-stat-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-top: 4px;
-  }
-
-  /* Toast */
   .toast {
     position: fixed;
     bottom: 24px;
@@ -641,7 +538,6 @@
 
   .toast.show { transform: translateY(0); opacity: 1; }
 
-  /* GitHub section */
   .github-panel {
     background: var(--card);
     border: 1px solid var(--border);
@@ -655,20 +551,8 @@
     margin-bottom: 16px;
   }
 
-  .github-info h3 {
-    font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-
-  .github-info p {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
-  }
-
+  .github-info h3 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .github-info p { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
   .github-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
   .github-input {
@@ -687,7 +571,6 @@
   .github-input:focus { border-color: var(--accent); }
   .github-input::placeholder { color: var(--muted); }
 
-  /* Responsive */
   @media (max-width: 800px) {
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .main-grid { grid-template-columns: 1fr; }
@@ -702,7 +585,6 @@
     .heatmap-cell { width: 10px; height: 10px; }
   }
 
-  /* History modal */
   .hist-modal {
     background: var(--bg2);
     border: 1px solid var(--border2);
@@ -714,16 +596,19 @@
     overflow-y: auto;
     position: relative;
   }
+
   .hist-modal h2 { font-family: var(--font-display); font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
   .hist-modal h2 span { color: var(--accent); }
   .hist-subtitle { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 20px; }
   .hist-list { display: flex; flex-direction: column; gap: 6px; }
+
   .hist-row {
     display: flex; align-items: center; gap: 10px;
     padding: 11px 14px;
     background: var(--card); border: 1px solid var(--border); border-radius: 8px;
     transition: all 0.15s;
   }
+
   .hist-row:hover { border-color: var(--border2); }
   .hist-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
   .hist-date { font-family: var(--font-mono); font-size: 12px; color: var(--text); min-width: 100px; }
@@ -731,100 +616,119 @@
   .hist-tags { display: flex; gap: 4px; flex: 1; flex-wrap: wrap; }
   .hist-tag { font-family: var(--font-mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; border: 1px solid; }
   .hist-hours { font-family: var(--font-mono); font-size: 11px; color: var(--muted); min-width: 32px; text-align: right; }
+
   .hist-edit-btn {
     font-family: var(--font-mono); font-size: 10px; padding: 4px 10px; border-radius: 4px;
     border: 1px solid var(--border2); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.15s; flex-shrink: 0;
   }
+
   .hist-edit-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
   .hist-empty { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: center; padding: 36px; }
+
   .hist-search {
     width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px;
     padding: 9px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--text);
     outline: none; margin-bottom: 14px; transition: border-color 0.2s;
   }
+
   .hist-search:focus { border-color: var(--accent); }
   .hist-search::placeholder { color: var(--muted); }
 
-  /* Day edit modal */
   .day-modal {
     background: var(--bg2); border: 1px solid var(--border2); border-radius: 16px;
     padding: 28px; width: 460px; max-width: 95vw; position: relative;
   }
+
   .day-modal h2 { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
   .day-modal-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+
   .day-task-row {
     display: flex; align-items: center; gap: 12px; padding: 12px 0;
     border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; transition: opacity 0.15s;
   }
+
   .day-task-row:last-of-type { border-bottom: none; }
+
   .day-check {
     width: 20px; height: 20px; border: 1.5px solid var(--border2); border-radius: 4px;
     flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s;
   }
+
   .day-task-row.day-done .day-check { background: var(--accent); border-color: var(--accent); }
   .day-check svg { display: none; }
   .day-task-row.day-done .day-check svg { display: block; }
   .day-task-name { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--text); flex: 1; }
   .day-task-time { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+
   .day-note-wrap { margin-top: 14px; }
   .day-note-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+
   .day-note {
     width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px;
     padding: 10px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--text);
     resize: vertical; min-height: 60px; outline: none; transition: border-color 0.2s;
   }
+
   .day-note:focus { border-color: var(--accent); }
   .day-note::placeholder { color: var(--muted); }
+
   .day-save-btn {
     width: 100%; margin-top: 16px; padding: 11px; background: var(--accent-dim2);
     border: 1px solid rgba(0,255,136,0.3); border-radius: 8px; color: var(--accent);
     font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
     cursor: pointer; transition: all 0.2s; text-transform: uppercase;
   }
+
   .day-save-btn:hover { background: rgba(0,255,136,0.2); }
+
   .day-del-btn {
     width: 100%; margin-top: 8px; padding: 9px; background: transparent;
     border: 1px solid rgba(255,92,92,0.25); border-radius: 8px; color: #ff5c5c;
     font-family: var(--font-mono); font-size: 11px; cursor: pointer; transition: all 0.2s; text-transform: uppercase;
   }
+
   .day-del-btn:hover { background: rgba(255,92,92,0.08); border-color: rgba(255,92,92,0.5); }
   .day-view-only { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-align: center; margin-top: 10px; }
 
-  /* Schedule edit button */
   .sched-edit-btn {
     font-family: var(--font-mono); font-size: 10px; padding: 3px 9px;
     border-radius: 4px; border: 1px solid var(--border2); background: transparent;
     color: var(--muted); cursor: pointer; transition: all 0.15s;
   }
+
   .sched-edit-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
-  /* Confirm modal */
   .confirm-modal {
     background: var(--bg2); border: 1px solid var(--border2); border-radius: 14px;
     padding: 28px; width: 360px; max-width: 95vw; position: relative; text-align: center;
   }
+
   .confirm-modal .confirm-icon { font-size: 32px; margin-bottom: 12px; }
   .confirm-modal h3 { font-family: var(--font-display); font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
   .confirm-modal p { font-family: var(--font-mono); font-size: 11px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
   .confirm-btns { display: flex; gap: 10px; }
+
   .confirm-yes {
     flex: 1; padding: 11px; background: var(--accent-dim2); border: 1px solid rgba(0,255,136,0.3);
     border-radius: 8px; color: var(--accent); font-family: var(--font-mono); font-size: 12px;
     font-weight: 700; cursor: pointer; transition: all 0.2s;
   }
+
   .confirm-yes:hover { background: rgba(0,255,136,0.25); }
+
   .confirm-no {
     flex: 1; padding: 11px; background: transparent; border: 1px solid var(--border2);
     border-radius: 8px; color: var(--muted); font-family: var(--font-mono); font-size: 12px;
     cursor: pointer; transition: all 0.2s;
   }
+
   .confirm-no:hover { border-color: var(--border2); color: var(--text); }
 
-  /* Schedule edit modal */
   .sched-edit-modal {
     background: var(--bg2); border: 1px solid var(--border2); border-radius: 16px;
     padding: 28px; width: 520px; max-width: 95vw; max-height: 88vh; overflow-y: auto; position: relative;
   }
+
   .sched-edit-modal h2 { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
   .sched-edit-modal .se-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 20px; }
   .se-block { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
@@ -834,22 +738,28 @@
   .se-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
   .se-row.full { grid-template-columns: 1fr; }
   .se-field-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+
   .se-input {
     width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px;
     padding: 8px 10px; font-family: var(--font-mono); font-size: 12px; color: var(--text); outline: none; transition: border-color 0.2s;
   }
+
   .se-input:focus { border-color: var(--accent); }
+
   .se-save-btn {
     width: 100%; margin-top: 16px; padding: 11px; background: var(--accent-dim2);
     border: 1px solid rgba(0,255,136,0.3); border-radius: 8px; color: var(--accent);
     font-family: var(--font-mono); font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; text-transform: uppercase;
   }
+
   .se-save-btn:hover { background: rgba(0,255,136,0.22); }
+
   .se-reset-btn {
     width: 100%; margin-top: 8px; padding: 9px; background: transparent;
     border: 1px solid var(--border2); border-radius: 8px; color: var(--muted);
     font-family: var(--font-mono); font-size: 11px; cursor: pointer; transition: all 0.2s;
   }
+
   .se-reset-btn:hover { color: var(--text); border-color: var(--border2); }
 </style>
 </head>
@@ -968,7 +878,6 @@
 
     <!-- Right column -->
     <div class="right-col">
-      <!-- Streak panel -->
       <div class="streak-panel">
         <div class="stat-label">CURRENT STREAK</div>
         <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px">
@@ -997,7 +906,6 @@
         </div>
       </div>
 
-      <!-- Year progress -->
       <div class="year-panel">
         <div class="ring-wrap">
           <svg width="64" height="64" viewBox="0 0 64 64">
@@ -1015,7 +923,6 @@
         </div>
       </div>
 
-      <!-- Schedule -->
       <div class="sched-panel">
         <div class="panel-header">
           <span class="panel-title">// Today's Schedule</span>
@@ -1156,7 +1063,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// State
+// ── State ────────────────────────────────────────────
 let state = {
   currentStreak: 0,
   longestStreak: 0,
@@ -1168,9 +1075,6 @@ let state = {
   dayEntries: {}
 };
 
-const TASK_HOURS = [4, 2, 3, 1];
-
-// Load from localStorage
 function loadState() {
   try {
     const saved = localStorage.getItem('sde_streak_pro');
@@ -1197,7 +1101,6 @@ function todayKey() {
 
 function toggleTask(idx) {
   const key = todayKey();
-  // Don't allow toggling if day already marked complete
   if (state.heatmap[key] === 4) return;
   state.tasks[idx] = !state.tasks[idx];
   document.getElementById('task-' + idx).classList.toggle('done', state.tasks[idx]);
@@ -1216,15 +1119,8 @@ function markDayComplete() {
   const key = todayKey();
   const done = state.tasks.filter(Boolean).length;
 
-  if (done === 0) {
-    showToast('✗ Complete at least one task first!');
-    return;
-  }
-
-  if (state.heatmap[key] === 4 && done === 4) {
-    showToast('✓ Already marked complete today!');
-    return;
-  }
+  if (done === 0) { showToast('✗ Complete at least one task first!'); return; }
+  if (state.heatmap[key] === 4 && done === 4) { showToast('✓ Already marked complete today!'); return; }
 
   const level = done === 4 ? 4 : done >= 3 ? 3 : done >= 2 ? 2 : 1;
   state.heatmap[key] = level;
@@ -1251,7 +1147,6 @@ function markDayComplete() {
   state.lastCompleted = key;
   if (state.currentStreak > state.longestStreak) state.longestStreak = state.currentStreak;
 
-  // Save day entry
   if (!state.dayEntries) state.dayEntries = {};
   const existing = state.dayEntries[key] || {};
   state.dayEntries[key] = {
@@ -1287,27 +1182,24 @@ function renderAll() {
   const lastD = state.lastCompleted ? new Date(state.lastCompleted).toLocaleDateString('en', {month:'short',day:'numeric'}) : '—';
   document.getElementById('sLast').textContent = lastD;
 
-  // Year ring
   const yearPct = Math.round((dayOfYear / 365) * 100);
   document.getElementById('yearPct').textContent = yearPct + '%';
   document.getElementById('yearDayCount').textContent = 'Day ' + dayOfYear + ' of 365';
   document.getElementById('yearRemaining').textContent = (365 - dayOfYear) + ' days remaining';
   const circ = 175.9;
-  const offset = circ - (circ * yearPct / 100);
-  document.getElementById('yearRing').style.strokeDashoffset = offset;
+  document.getElementById('yearRing').style.strokeDashoffset = circ - (circ * yearPct / 100);
 
-  // Date
   const opts = { weekday:'short', month:'short', day:'numeric', year:'numeric' };
   document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en', opts);
   document.getElementById('heatmapYear').textContent = now.getFullYear();
 
-  // Tasks visual state
   state.tasks.forEach((v, i) => {
     document.getElementById('task-' + i).classList.toggle('done', v);
   });
   updateProgress();
 }
 
+// ── Heatmap ──────────────────────────────────────────
 function renderHeatmap() {
   const grid = document.getElementById('heatmapGrid');
   const monthLabels = document.getElementById('monthLabels');
@@ -1318,19 +1210,17 @@ function renderHeatmap() {
   const todayStr = todayKey();
   const year = today.getFullYear();
 
-  // Always start from Jan 1 of current year, aligned to Sunday
   const jan1 = new Date(year, 0, 1);
-  const startOffset = jan1.getDay(); // 0=Sun, push back so Jan 1 lands in correct column
+  const startOffset = jan1.getDay();
   const start = new Date(jan1);
   start.setDate(jan1.getDate() - startOffset);
 
-  // How many weeks needed to cover Jan 1 → Dec 31
   const dec31 = new Date(year, 11, 31);
   const totalDays = Math.ceil((dec31 - start) / 86400000) + 1;
   const totalWeeks = Math.ceil(totalDays / 7);
 
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const monthPositions = {}; // track first week index per month for labels
+  const monthPositions = {};
 
   for (let w = 0; w < totalWeeks; w++) {
     const col = document.createElement('div');
@@ -1343,7 +1233,6 @@ function renderHeatmap() {
       const cell = document.createElement('div');
       cell.className = 'heatmap-cell';
 
-      // Grey out days outside current year
       if (date.getFullYear() !== year) {
         cell.style.opacity = '0.2';
         cell.style.pointerEvents = 'none';
@@ -1351,54 +1240,51 @@ function renderHeatmap() {
         continue;
       }
 
-      // Mark today with a ring
       const key = date.toISOString().slice(0, 10);
+      const isFuture = date > today && key !== todayStr;
+
       if (key === todayStr) {
         cell.style.outline = '1.5px solid rgba(0,255,136,0.7)';
         cell.style.outlineOffset = '1px';
       }
 
       const level = state.heatmap[key] || 0;
-      if (level > 0) cell.classList.add('l' + level);
+      if (level > 0) {
+        cell.classList.add('l' + level);
+      } else if (!isFuture) {
+        // ── FIX: past/today empty days get a subtle dashed style ──
+        cell.classList.add('past-empty');
+      }
 
-      // Future days — slightly muted, no pointer
-      const isFuture = date > today;
-      if (isFuture && key !== todayStr) {
+      if (isFuture) {
         cell.style.opacity = '0.3';
         cell.style.cursor = 'default';
+        col.appendChild(cell);
+        if (date.getDate() === 1) monthPositions[w] = date.getMonth();
+        continue;
       }
 
-      const dateStr = date.toLocaleDateString('en', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
-      const lvlTxt = ['No entry','Low activity','Moderate','High','Full completion'];
-      const hasEntry = state.heatmap[key] > 0;
+      // ── FIX: ALL non-future days open the modal — with or without an entry ──
+      const capturedKey = key;
+      const capturedDateStr = date.toLocaleDateString('en', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
+      const hasEntry = level > 0;
 
-      if (!isFuture || key === todayStr) {
-        cell.title = dateStr + ' — ' + lvlTxt[level] + (hasEntry ? ' · click to edit' : ' · no entry');
-        const capturedKey = key;
-        const capturedDateStr = dateStr;
-        cell.addEventListener('click', () => {
-          if (state.heatmap[capturedKey] > 0) {
-            openDayModal(capturedKey, capturedDateStr);
-          } else if (capturedKey === todayKey()) {
-            openDayModal(capturedKey, capturedDateStr);
-          } else {
-            showToast('⚠ No entry for ' + capturedDateStr + '. Complete that day first.');
-          }
-        });
-      }
+      cell.title = capturedDateStr + (hasEntry
+        ? ' — Level ' + level + '/4 · click to edit'
+        : ' — No entry · click to add');
+
+      cell.addEventListener('click', () => {
+        openDayModal(capturedKey, capturedDateStr);
+      });
 
       col.appendChild(cell);
 
-      // Month label: first day of month in that week
-      if (date.getDate() === 1) {
-        monthPositions[w] = date.getMonth();
-      }
+      if (date.getDate() === 1) monthPositions[w] = date.getMonth();
     }
 
     grid.appendChild(col);
   }
 
-  // Render month labels
   Object.keys(monthPositions).forEach(w => {
     const lbl = document.createElement('div');
     lbl.className = 'month-label';
@@ -1411,6 +1297,7 @@ function renderHeatmap() {
   monthLabels.style.height = '14px';
 }
 
+// ── Preview Modal ────────────────────────────────────
 function openPreview() {
   const now = new Date();
   const start = new Date(now.getFullYear(), 0, 1);
@@ -1429,15 +1316,13 @@ function openPreview() {
   document.getElementById('previewModal').classList.add('show');
 }
 
-function closePreview() {
-  document.getElementById('previewModal').classList.remove('show');
-}
+function closePreview() { document.getElementById('previewModal').classList.remove('show'); }
 
 document.getElementById('previewModal').addEventListener('click', function(e) {
   if (e.target === this) closePreview();
 });
 
-// GitHub backup stubs
+// ── GitHub Backup ────────────────────────────────────
 function pushBackup() {
   const token = document.getElementById('ghToken').value.trim();
   if (!token) { showToast('⚠ Enter your GitHub token first'); return; }
@@ -1448,8 +1333,8 @@ function pushBackup() {
     headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
     body: JSON.stringify({ description: 'SDE Streak Tracker Backup', public: false, files: { 'sde_streak.json': { content: data } } })
   }).then(r => {
-    if (r.ok) { showToast('✓ Backup pushed successfully!'); }
-    else { showToast('✗ Push failed — check token & permissions'); }
+    if (r.ok) showToast('✓ Backup pushed successfully!');
+    else showToast('✗ Push failed — check token & permissions');
   }).catch(() => showToast('✗ Network error — check connection'));
 }
 
@@ -1457,53 +1342,41 @@ function restoreBackup() {
   const token = document.getElementById('ghToken').value.trim();
   if (!token) { showToast('⚠ Enter your GitHub token first'); return; }
   showToast('↓ Searching for backup...');
-  fetch('https://api.github.com/gists', {
-    headers: { 'Authorization': 'token ' + token }
-  }).then(r => r.json()).then(gists => {
-    const g = gists.find(x => x.description === 'SDE Streak Tracker Backup');
-    if (!g) { showToast('✗ No backup found in Gists'); return; }
-    return fetch(g.url, { headers: { 'Authorization': 'token ' + token } });
-  }).then(r => r && r.json()).then(g => {
-    if (!g) return;
-    const raw = g.files['sde_streak.json']?.content;
-    if (!raw) return;
-    state = { ...state, ...JSON.parse(raw) };
-    saveState();
-    renderAll();
-    renderHeatmap();
-    showToast('✓ Backup restored successfully!');
-  }).catch(() => showToast('✗ Restore failed — check token'));
+  fetch('https://api.github.com/gists', { headers: { 'Authorization': 'token ' + token } })
+    .then(r => r.json()).then(gists => {
+      const g = gists.find(x => x.description === 'SDE Streak Tracker Backup');
+      if (!g) { showToast('✗ No backup found in Gists'); return; }
+      return fetch(g.url, { headers: { 'Authorization': 'token ' + token } });
+    }).then(r => r && r.json()).then(g => {
+      if (!g) return;
+      const raw = g.files['sde_streak.json']?.content;
+      if (!raw) return;
+      state = { ...state, ...JSON.parse(raw) };
+      saveState(); renderAll(); renderHeatmap();
+      showToast('✓ Backup restored successfully!');
+    }).catch(() => showToast('✗ Restore failed — check token'));
 }
 
-const TASK_NAMES = ['Java + Extra Learning', 'SQL', 'DSA', 'System Design'];
-const TASK_TIMES = ['8:30–12:30', '1:00–3:00', '5:00–8:00', '9:00–10:00'];
-const BADGE_COLORS = [
-  {color:'#ff9a3c',border:'rgba(255,154,60,0.35)',bg:'rgba(255,154,60,0.1)'},
-  {color:'#4fa3e0',border:'rgba(79,163,224,0.35)',bg:'rgba(79,163,224,0.1)'},
-  {color:'#00ff88',border:'rgba(0,255,136,0.35)',bg:'rgba(0,255,136,0.08)'},
-  {color:'#c084fc',border:'rgba(192,132,252,0.35)',bg:'rgba(192,132,252,0.08)'}
+// ── Schedule helpers ─────────────────────────────────
+const DEFAULT_SCHEDULE = [
+  { name: 'Java + Extra Learning', timeStart: '8:30 AM', timeEnd: '12:30 PM', hours: 4, desc: 'Core Java, Advanced Java, APIs, Frameworks', color: '#ff9a3c' },
+  { name: 'SQL',                   timeStart: '1:00 PM',  timeEnd: '3:00 PM',  hours: 2, desc: 'Queries, Joins, Subqueries, PL/SQL, Optimization', color: '#4fa3e0' },
+  { name: 'DSA',                   timeStart: '5:00 PM',  timeEnd: '8:00 PM',  hours: 3, desc: 'Arrays, Trees, Graphs, DP, Problem Solving',       color: '#00ff88' },
+  { name: 'System Design',         timeStart: '9:00 PM',  timeEnd: '10:00 PM', hours: 1, desc: 'Scalability, Distributed Systems, Caching',         color: '#c084fc' }
 ];
-const LEVEL_COLORS = ['#1a2230','#0d3320','#1a5c3a','#00cc6a','#00ff88'];
 
-function getTaskHours() {
-  const sched = getSchedule();
-  return sched.map(s => Number(s.hours));
-}
-function getTaskNames() { return getSchedule().map(s => s.name); }
-function getTaskTimes() { return getSchedule().map(s => s.timeStart.replace(' AM','').replace(' PM','') + '–' + s.timeEnd.replace(' AM','').replace(' PM','')); }
-function getTaskColors() {
-  const sched = getSchedule();
-  return sched.map(s => ({ color: s.color, border: s.color.replace('#','rgba(') + ',0.35)', bg: s.color.replace('#','rgba(') + ',0.1)' }));
+function getSchedule() {
+  if (!state.schedule || !state.schedule.length) return DEFAULT_SCHEDULE;
+  return state.schedule;
 }
 
-function openHistory() {
-  renderHistoryList();
-  document.getElementById('historyModal').classList.add('show');
-}
+function getTaskHours()  { return getSchedule().map(s => Number(s.hours)); }
+function getTaskNames()  { return getSchedule().map(s => s.name); }
+function getTaskTimes()  { return getSchedule().map(s => s.timeStart.replace(' AM','').replace(' PM','') + '–' + s.timeEnd.replace(' AM','').replace(' PM','')); }
 
-function closeHistory() {
-  document.getElementById('historyModal').classList.remove('show');
-}
+// ── History Modal ────────────────────────────────────
+function openHistory() { renderHistoryList(); document.getElementById('historyModal').classList.add('show'); }
+function closeHistory() { document.getElementById('historyModal').classList.remove('show'); }
 
 function renderHistoryList() {
   const list = document.getElementById('histList');
@@ -1511,16 +1384,9 @@ function renderHistoryList() {
 
   if (!state.dayEntries) state.dayEntries = {};
 
-  // Merge heatmap entries that may not have a dayEntries record (legacy)
   Object.keys(state.heatmap).forEach(k => {
     if (!state.dayEntries[k]) {
-      state.dayEntries[k] = {
-        tasks: [false, false, false, false],
-        level: state.heatmap[k],
-        hours: 0,
-        note: '',
-        savedAt: k
-      };
+      state.dayEntries[k] = { tasks: [false,false,false,false], level: state.heatmap[k], hours: 0, note: '', savedAt: k };
     }
   });
 
@@ -1533,6 +1399,8 @@ function renderHistoryList() {
     list.innerHTML = '<div class="hist-empty">No entries found.<br>Complete days to see them here.</div>';
     return;
   }
+
+  const LEVEL_COLORS = ['#1a2230','#0d3320','#1a5c3a','#00cc6a','#00ff88'];
 
   list.innerHTML = keys.map(key => {
     const entry = state.dayEntries[key];
@@ -1550,17 +1418,15 @@ function renderHistoryList() {
       const abbr = abbrs[i];
       const border = color + '55';
       const bg = color + '1a';
-      if (!done) return `<span class="hist-tag" style="color:${color};border-color:${border};background:${bg};opacity:0.35">${abbr}</span>`;
-      return `<span class="hist-tag" style="color:${color};border-color:${border};background:${bg}">${abbr}</span>`;
+      return `<span class="hist-tag" style="color:${color};border-color:${border};background:${bg};opacity:${done ? 1 : 0.35}">${abbr}</span>`;
     }).join('');
 
-    const isToday = key === todayKey();
     return `<div class="hist-row">
       <div class="hist-dot" style="background:${LEVEL_COLORS[level]}${level===4?';box-shadow:0 0 4px rgba(0,255,136,0.6)':''}"></div>
       <div class="hist-date">${dateStr}</div>
       <div class="hist-tags">${taskTags}</div>
       <div class="hist-hours">${hrs}h</div>
-      <button class="hist-edit-btn" onclick="closeHistory();openDayModal('${key}','${dateStr}')">${isToday ? '✎ Edit' : '✎ Edit'}</button>
+      <button class="hist-edit-btn" onclick="closeHistory();openDayModal('${key}','${dateStr}')">✎ Edit</button>
     </div>`;
   }).join('');
 }
@@ -1569,7 +1435,7 @@ document.getElementById('historyModal').addEventListener('click', function(e) {
   if (e.target === this) closeHistory();
 });
 
-// ── Day Entry Modal ─────────────────────────────────
+// ── Day Entry Modal ──────────────────────────────────
 let editingKey = null;
 let editTasks = [false, false, false, false];
 
@@ -1581,20 +1447,21 @@ function openDayModal(key, dateStr) {
   const level = state.heatmap[key] || 0;
   const isToday = key === todayKey();
 
+  // ── FIX: initialise editTasks from existing entry OR all-false for new day ──
   editTasks = entry ? [...(entry.tasks || [false,false,false,false])] : [false,false,false,false];
 
-  document.getElementById('dayModalTitle').textContent = isToday ? 'Today\'s Entry' : 'Day Entry';
-  document.getElementById('dayModalSub').textContent = dateStr + (level > 0 ? ' · Level ' + level + '/4' : ' · No activity logged');
+  document.getElementById('dayModalTitle').textContent = isToday ? "Today's Entry" : 'Day Entry';
+
+  // ── FIX: show "No entry yet — add one below" hint for empty past days ──
+  const levelHint = level > 0
+    ? ' · Level ' + level + '/4'
+    : ' · No entry yet — add one below';
+  document.getElementById('dayModalSub').textContent = dateStr + levelHint;
+
   document.getElementById('dayNote').value = entry ? (entry.note || '') : '';
-
-  const saveBtn = document.getElementById('daySaveBtn');
-  const delBtn = document.getElementById('dayDelBtn');
-  const viewOnly = document.getElementById('dayViewOnly');
-
-  // Everyone can edit — today or past
-  saveBtn.style.display = 'block';
-  delBtn.style.display = level > 0 ? 'block' : 'none';
-  viewOnly.textContent = '';
+  document.getElementById('daySaveBtn').style.display = 'block';
+  document.getElementById('dayDelBtn').style.display = level > 0 ? 'block' : 'none';
+  document.getElementById('dayViewOnly').textContent = '';
 
   renderDayTaskRows();
   document.getElementById('dayModal').classList.add('show');
@@ -1633,70 +1500,70 @@ function saveDayEntry() {
 
   const done = editTasks.filter(Boolean).length;
   const level = done === 4 ? 4 : done >= 3 ? 3 : done >= 2 ? 2 : done >= 1 ? 1 : 0;
-  let hrs = 0;
   const TASK_HOURS = getTaskHours();
+  let hrs = 0;
   editTasks.forEach((v, i) => { if(v) hrs += TASK_HOURS[i]; });
 
   const note = document.getElementById('dayNote').value;
-  const wasLogged = state.heatmap[key] > 0;
-
-  // Update entry
-  state.dayEntries[key] = {
-    tasks: [...editTasks],
-    level,
-    hours: hrs,
-    note,
-    savedAt: new Date().toISOString()
-  };
+  const wasLogged = (state.heatmap[key] || 0) > 0;
+  const oldHrs = wasLogged && state.dayEntries[key] ? (state.dayEntries[key].hours || 0) : 0;
 
   if (done > 0) {
     state.heatmap[key] = level;
+    state.dayEntries[key] = { tasks: [...editTasks], level, hours: hrs, note, savedAt: new Date().toISOString() };
 
     if (!wasLogged) {
-      // Adding a new past entry
+      // Brand-new entry (past or today)
       state.productiveDays++;
       state.totalHours = (state.totalHours || 0) + hrs;
+
       if (isToday) {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         const yKey = yesterday.toISOString().slice(0, 10);
-        if (state.lastCompleted === yKey) state.currentStreak++;
-        else state.currentStreak = 1;
+        state.currentStreak = (state.lastCompleted === yKey) ? state.currentStreak + 1 : 1;
         if (state.currentStreak > state.longestStreak) state.longestStreak = state.currentStreak;
         state.lastCompleted = key;
+      } else {
+        // Past day added retroactively — full recalc
+        recalcStreak();
+        recalcProductiveDays();
       }
     } else {
-      // Editing: adjust hours delta
-      const oldHrs = state.dayEntries[key]?.hours || hrs;
+      // Editing existing — adjust hours delta
       state.totalHours = Math.max(0, (state.totalHours || 0) - oldHrs + hrs);
     }
 
-    // Sync today's tasks with main task panel
-    if (isToday) {
-      state.tasks = [...editTasks];
-      renderAll();
-    }
+    if (isToday) { state.tasks = [...editTasks]; }
+
   } else {
-    // All unchecked — remove
+    // No tasks ticked → remove entry
     delete state.heatmap[key];
     delete state.dayEntries[key];
     if (wasLogged) {
       state.productiveDays = Math.max(0, state.productiveDays - 1);
+      state.totalHours = Math.max(0, (state.totalHours || 0) - oldHrs);
+      if (state.lastCompleted === key) {
+        const keys = Object.keys(state.heatmap).sort();
+        state.lastCompleted = keys.length ? keys[keys.length - 1] : null;
+      }
+      recalcStreak();
     }
+    if (isToday) state.tasks = [false,false,false,false];
   }
 
   saveState();
   renderHeatmap();
   renderAll();
   closeDayModal();
-  showToast(done > 0 ? '✓ Entry saved for ' + key : '✗ Entry removed (no tasks)');
+  showToast(done > 0 ? '✓ Entry saved for ' + key : '✗ Entry removed (no tasks checked)');
 }
 
 function deleteDayEntry() {
   const key = editingKey;
   if (!state.heatmap[key]) { closeDayModal(); return; }
 
-  const oldHrs = (state.dayEntries && state.dayEntries[key]) ? (state.dayEntries[key].hours || 0) : 0;
+  const oldHrs = state.dayEntries && state.dayEntries[key] ? (state.dayEntries[key].hours || 0) : 0;
   delete state.heatmap[key];
   if (state.dayEntries) delete state.dayEntries[key];
   state.productiveDays = Math.max(0, state.productiveDays - 1);
@@ -1707,12 +1574,10 @@ function deleteDayEntry() {
     state.lastCompleted = keys.length ? keys[keys.length - 1] : null;
   }
 
-  // Recalculate streak from scratch
   recalcStreak();
 
-  const isToday = key === todayKey();
-  if (isToday) {
-    state.tasks = [false, false, false, false];
+  if (key === todayKey()) {
+    state.tasks = [false,false,false,false];
     renderAll();
   }
 
@@ -1737,16 +1602,27 @@ function recalcStreak() {
   maxStreak = Math.max(maxStreak, cur);
   state.longestStreak = maxStreak;
 
-  // Current streak: count backward from today/last
-  const today = todayKey();
   let streak = 0;
-  let check = new Date(today + 'T00:00:00');
+  let check = new Date(todayKey() + 'T00:00:00');
   while (true) {
     const k = check.toISOString().slice(0,10);
     if (state.heatmap[k]) { streak++; check.setDate(check.getDate()-1); }
     else break;
   }
   state.currentStreak = streak;
+}
+
+function recalcProductiveDays() {
+  // Count unique days in heatmap that belong to current year
+  const year = new Date().getFullYear().toString();
+  state.productiveDays = Object.keys(state.heatmap).filter(k => k.startsWith(year)).length;
+
+  // Recalculate total hours from dayEntries
+  if (state.dayEntries) {
+    state.totalHours = Object.entries(state.dayEntries)
+      .filter(([k]) => state.heatmap[k] > 0)
+      .reduce((sum, [, e]) => sum + (e.hours || 0), 0);
+  }
 }
 
 function closeDayModal() {
@@ -1758,19 +1634,7 @@ document.getElementById('dayModal').addEventListener('click', function(e) {
   if (e.target === this) closeDayModal();
 });
 
-// ── Schedule System ────────────────────────────────
-const DEFAULT_SCHEDULE = [
-  { name: 'Java + Extra Learning', timeStart: '8:30 AM', timeEnd: '12:30 PM', hours: 4, desc: 'Core Java, Advanced Java, APIs, Frameworks', color: '#ff9a3c' },
-  { name: 'SQL', timeStart: '1:00 PM', timeEnd: '3:00 PM', hours: 2, desc: 'Queries, Joins, Subqueries, PL/SQL, Optimization', color: '#4fa3e0' },
-  { name: 'DSA', timeStart: '5:00 PM', timeEnd: '8:00 PM', hours: 3, desc: 'Arrays, Trees, Graphs, DP, Problem Solving', color: '#00ff88' },
-  { name: 'System Design', timeStart: '9:00 PM', timeEnd: '10:00 PM', hours: 1, desc: 'Scalability, Distributed Systems, Caching', color: '#c084fc' }
-];
-
-function getSchedule() {
-  if (!state.schedule || !state.schedule.length) return DEFAULT_SCHEDULE;
-  return state.schedule;
-}
-
+// ── Schedule Panel ───────────────────────────────────
 function renderSchedPanel() {
   const sched = getSchedule();
   const list = document.getElementById('schedList');
@@ -1788,7 +1652,6 @@ function renderSchedPanel() {
       </div>
     </div>`).join('');
 
-  // Also sync task panel names/meta with schedule
   syncTaskNamesFromSchedule(sched);
 }
 
@@ -1803,12 +1666,9 @@ function syncTaskNamesFromSchedule(sched) {
   });
 }
 
-function openSchedConfirm() {
-  document.getElementById('schedConfirmModal').classList.add('show');
-}
-function closeSchedConfirm() {
-  document.getElementById('schedConfirmModal').classList.remove('show');
-}
+function openSchedConfirm() { document.getElementById('schedConfirmModal').classList.add('show'); }
+function closeSchedConfirm() { document.getElementById('schedConfirmModal').classList.remove('show'); }
+
 document.getElementById('schedConfirmModal').addEventListener('click', function(e) {
   if (e.target === this) closeSchedConfirm();
 });
@@ -1859,9 +1719,8 @@ function openSchedEditor() {
   document.getElementById('schedEditModal').classList.add('show');
 }
 
-function closeSchedEditor() {
-  document.getElementById('schedEditModal').classList.remove('show');
-}
+function closeSchedEditor() { document.getElementById('schedEditModal').classList.remove('show'); }
+
 document.getElementById('schedEditModal').addEventListener('click', function(e) {
   if (e.target === this) closeSchedEditor();
 });
@@ -1869,12 +1728,12 @@ document.getElementById('schedEditModal').addEventListener('click', function(e) 
 function saveSchedule() {
   const sched = getSchedule();
   const newSched = sched.map((s, i) => ({
-    name: document.getElementById('se-name-' + i).value.trim() || s.name,
-    timeStart: document.getElementById('se-start-' + i).value.trim() || s.timeStart,
-    timeEnd: document.getElementById('se-end-' + i).value.trim() || s.timeEnd,
-    hours: parseFloat(document.getElementById('se-hrs-' + i).value) || s.hours,
-    desc: document.getElementById('se-desc-' + i).value.trim() || s.desc,
-    color: document.getElementById('se-color-' + i).value || s.color
+    name:      document.getElementById('se-name-'  + i).value.trim()   || s.name,
+    timeStart: document.getElementById('se-start-' + i).value.trim()   || s.timeStart,
+    timeEnd:   document.getElementById('se-end-'   + i).value.trim()   || s.timeEnd,
+    hours:     parseFloat(document.getElementById('se-hrs-' + i).value) || s.hours,
+    desc:      document.getElementById('se-desc-'  + i).value.trim()   || s.desc,
+    color:     document.getElementById('se-color-' + i).value          || s.color
   }));
   state.schedule = newSched;
   saveState();
@@ -1891,7 +1750,7 @@ function resetSchedule() {
   showToast('↺ Schedule reset to default');
 }
 
-// Init
+// ── Init ─────────────────────────────────────────────
 loadState();
 renderAll();
 renderHeatmap();
