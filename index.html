@@ -1,943 +1,1249 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SDE Streak Tracker Pro</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --bg: #0a0d12;
+    --bg2: #0f1318;
+    --bg3: #151b24;
+    --card: #131920;
+    --card2: #1a2230;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8edf4;
+    --muted: #5a6680;
+    --accent: #00ff88;
+    --accent2: #00cc6a;
+    --accent-dim: rgba(0,255,136,0.08);
+    --accent-dim2: rgba(0,255,136,0.15);
+    --blue: #4fa3e0;
+    --blue-dim: rgba(79,163,224,0.1);
+    --red: #ff5c5c;
+    --amber: #ffb547;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-display: 'Syne', sans-serif;
+  }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body{
-background:
-radial-gradient(circle at top,#161b22,#0d1117 60%);
-color:white;
-min-height:100vh;
-padding:30px;
-overflow-x:hidden;
-}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-.container{
-max-width:1500px;
-margin:auto;
-}
+  /* Grid lines bg */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.header{
-margin-bottom:40px;
-}
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 20px;
+    position: relative;
+    z-index: 1;
+  }
 
-.header h1{
-font-size:52px;
-font-weight:700;
-background:linear-gradient(
-90deg,
-#58a6ff,
-#39d353
-);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 
-.header p{
-margin-top:10px;
-color:#8b949e;
-font-size:18px;
-}
+  .header-left h1 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    line-height: 1.1;
+  }
 
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-bottom:40px;
-}
+  .header-left h1 span {
+    color: var(--accent);
+  }
 
-.stat{
-background:rgba(22,27,34,.75);
-padding:30px;
-border-radius:24px;
-border:1px solid rgba(255,255,255,.08);
-transition:.3s;
-}
+  .header-left p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
 
-.stat:hover{
-transform:translateY(-8px);
-}
+  .header-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
 
-.stat h2{
-font-size:44px;
-color:#58a6ff;
-}
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--card);
+    color: var(--muted);
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
 
-.stat p{
-margin-top:10px;
-color:#8b949e;
-}
+  .btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
-.tasks{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-margin-bottom:40px;
-}
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+    font-weight: 700;
+  }
 
-.card{
-background:rgba(22,27,34,.75);
-padding:30px;
-border-radius:24px;
-border:1px solid rgba(255,255,255,.08);
-transition:.3s;
-}
+  .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); color: #000; }
 
-.card:hover{
-transform:translateY(-8px);
-}
+  /* Stats row */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
 
-.card h3{
-font-size:24px;
-margin-bottom:10px;
-}
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 16px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
 
-.card p{
-color:#8b949e;
-}
+  .stat-card:hover { border-color: var(--border2); }
 
-.hours{
-font-size:40px;
-font-weight:700;
-margin:20px 0;
-color:#39d353;
-}
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
 
-.check{
-display:flex;
-align-items:center;
-gap:12px;
-margin-top:10px;
-}
+  .stat-card.fire::before { background: #ff5c5c; }
+  .stat-card.blue::before { background: #4fa3e0; }
+  .stat-card.amber::before { background: #ffb547; }
 
-.check input{
-width:24px;
-height:24px;
-cursor:pointer;
-accent-color:#39d353;
-}
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
 
-.progress-container{
-background:rgba(22,27,34,.75);
-padding:30px;
-border-radius:24px;
-border:1px solid rgba(255,255,255,.08);
-margin-bottom:40px;
-}
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
 
-.progress-top{
-display:flex;
-justify-content:space-between;
-margin-bottom:18px;
-}
+  .stat-card.fire .stat-value { color: #ff5c5c; }
+  .stat-card.blue .stat-value { color: #4fa3e0; }
+  .stat-card.amber .stat-value { color: #ffb547; }
 
-.progress-bar{
-height:22px;
-background:#21262d;
-border-radius:50px;
-overflow:hidden;
-}
+  .stat-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
 
-.progress{
-height:100%;
-width:0%;
-border-radius:50px;
-background:linear-gradient(
-90deg,
-#58a6ff,
-#39d353
-);
-transition:.5s;
-}
+  /* Main grid */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
 
-.heatmap-section{
-background:rgba(22,27,34,.75);
-padding:30px;
-border-radius:24px;
-border:1px solid rgba(255,255,255,.08);
-}
+  /* Tasks panel */
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
 
-.heatmap{
-display:grid;
-grid-template-columns:repeat(30,1fr);
-gap:6px;
-margin-top:25px;
-}
+  .panel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.day{
-aspect-ratio:1;
-border-radius:5px;
-background:#21262d;
-}
+  .panel-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
 
-.level-1{
-background:#0e4429;
-}
+  .panel-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+  }
 
-.level-2{
-background:#006d32;
-}
+  /* Progress bar */
+  .progress-wrap {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
 
-.level-3{
-background:#26a641;
-}
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
 
-.level-4{
-background:#39d353;
-box-shadow:0 0 10px #39d353;
-}
+  .progress-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
 
-.buttons{
-display:flex;
-flex-wrap:wrap;
-gap:16px;
-margin-top:35px;
-}
+  .progress-pct {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+  }
 
-button{
-padding:14px 24px;
-border:none;
-border-radius:14px;
-cursor:pointer;
-font-weight:600;
-font-size:15px;
-transition:.3s;
-color:white;
-}
+  .progress-track {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
 
-button:hover{
-transform:
-translateY(-4px)
-scale(1.05);
-}
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 8px rgba(0,255,136,0.5);
+  }
 
-.complete{
-background:#238636;
-}
+  /* Task items */
+  .task-list { padding: 8px 0; }
 
-.reset{
-background:#ff4d6d;
-}
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
 
-.push{
-background:#8957e5;
-}
+  .task-item:last-child { border-bottom: none; }
+  .task-item:hover { background: rgba(255,255,255,0.02); }
+  .task-item.done { opacity: 0.5; }
 
-.pull{
-background:#f78166;
-}
+  .task-check {
+    width: 20px; height: 20px;
+    border: 1.5px solid var(--border2);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
 
-.preview{
-background:#58a6ff;
-}
+  .task-item.done .task-check {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
 
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.75);
-justify-content:center;
-align-items:center;
-z-index:99999;
-padding:20px;
-}
+  .task-check svg { display: none; }
+  .task-item.done .task-check svg { display: block; }
 
-.modal-content{
-background:#161b22;
-padding:35px;
-border-radius:24px;
-width:100%;
-max-width:420px;
-border:1px solid #30363d;
-box-shadow:0 10px 40px rgba(0,0,0,.5);
-}
+  .task-info { flex: 1; min-width: 0; }
 
-.modal-content h2{
-margin-bottom:20px;
-}
+  .task-name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
 
-.modal-content p{
-margin:14px 0;
-font-size:17px;
-}
+  .task-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+  }
 
-.close-btn{
-margin-top:20px;
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-background:#58a6ff;
-color:white;
-font-weight:600;
-cursor:pointer;
-}
+  .task-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid;
+    flex-shrink: 0;
+  }
 
+  .badge-java { color: #ff9a3c; border-color: rgba(255,154,60,0.3); background: rgba(255,154,60,0.08); }
+  .badge-sql { color: #4fa3e0; border-color: rgba(79,163,224,0.3); background: rgba(79,163,224,0.08); }
+  .badge-dsa { color: var(--accent); border-color: rgba(0,255,136,0.3); background: var(--accent-dim); }
+  .badge-sys { color: #c084fc; border-color: rgba(192,132,252,0.3); background: rgba(192,132,252,0.08); }
+
+  .mark-btn-wrap {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .mark-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent-dim2);
+    border: 1px solid rgba(0,255,136,0.3);
+    border-radius: 8px;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .mark-btn:hover { background: rgba(0,255,136,0.2); box-shadow: 0 0 16px rgba(0,255,136,0.15); }
+  .mark-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Right panel - mini analytics */
+  .right-col { display: flex; flex-direction: column; gap: 14px; }
+
+  .streak-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .streak-num {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .streak-fire { color: #ff5c5c; }
+
+  .streak-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .streak-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 16px 0;
+  }
+
+  .streak-rows { display: flex; flex-direction: column; gap: 10px; }
+
+  .streak-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .streak-row-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .streak-row-val {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* Year progress ring */
+  .year-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ring-wrap { position: relative; width: 64px; height: 64px; flex-shrink: 0; }
+  .ring-wrap svg { transform: rotate(-90deg); }
+  .ring-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .year-info { flex: 1; }
+  .year-title { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .year-sub { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--text); margin-top: 4px; }
+  .year-subsub { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+  /* Schedule mini */
+  .sched-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .sched-item {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+  }
+
+  .sched-item:last-child { border-bottom: none; }
+
+  .sched-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 12px;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .sched-content { flex: 1; }
+  .sched-name { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--text); }
+  .sched-time { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 1px; }
+  .sched-dur { font-family: var(--font-mono); font-size: 10px; font-weight: 700; margin-top: 2px; }
+
+  /* Heatmap */
+  .heatmap-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .heatmap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .heatmap-grid {
+    display: flex;
+    gap: 3px;
+    overflow: hidden;
+  }
+
+  .heatmap-col { display: flex; flex-direction: column; gap: 3px; }
+
+  .heatmap-cell {
+    width: 13px; height: 13px;
+    border-radius: 2px;
+    background: #1a2230;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  .heatmap-cell:hover { transform: scale(1.4); z-index: 10; }
+  .heatmap-cell.l1 { background: #0d3320; }
+  .heatmap-cell.l2 { background: #1a5c3a; }
+  .heatmap-cell.l3 { background: #00cc6a; }
+  .heatmap-cell.l4 { background: var(--accent); box-shadow: 0 0 4px rgba(0,255,136,0.6); }
+
+  .heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    justify-content: flex-end;
+  }
+
+  .legend-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+  .legend-cell { width: 11px; height: 11px; border-radius: 2px; }
+
+  /* Month labels */
+  .month-labels {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 4px;
+    padding-left: 0;
+  }
+
+  .month-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--muted);
+    width: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* Modal overlay */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 28px;
+    width: 400px;
+    max-width: 90vw;
+    position: relative;
+  }
+
+  .modal h2 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+
+  .modal h2 span { color: var(--accent); }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    border-radius: 6px;
+    width: 28px; height: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+  .modal-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .modal-stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+
+  .modal-stat-val {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .modal-stat-val.fire { color: #ff5c5c; }
+  .modal-stat-val.blue { color: #4fa3e0; }
+  .modal-stat-val.amber { color: #ffb547; }
+
+  .modal-stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 4px;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--card2);
+    border: 1px solid rgba(0,255,136,0.4);
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    z-index: 9999;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* GitHub section */
+  .github-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .github-info h3 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .github-info p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .github-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .github-input {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text);
+    width: 220px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .github-input:focus { border-color: var(--accent); }
+  .github-input::placeholder { color: var(--muted); }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .main-grid { grid-template-columns: 1fr; }
+    .right-col { flex-direction: row; flex-wrap: wrap; }
+    .streak-panel { flex: 1; min-width: 200px; }
+    .sched-panel { flex: 1; min-width: 200px; }
+  }
+
+  @media (max-width: 500px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-value { font-size: 24px; }
+    .heatmap-cell { width: 10px; height: 10px; }
+  }
 </style>
-
 </head>
-
 <body>
-
 <div class="container">
 
-<div class="header">
-<h1>SDE Streak Tracker</h1>
-<p>LeetCode Style Productivity Dashboard 🚀</p>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>SDE Streak <span>Tracker Pro</span></h1>
+      <p>// DEVELOPER PRODUCTIVITY OS — DAILY CONSISTENCY ENGINE</p>
+    </div>
+    <div class="header-right">
+      <button class="btn" onclick="openPreview()">◈ Preview Analytics</button>
+      <button class="btn-primary btn" onclick="markDayComplete()">✓ Mark Day Complete</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Current Streak</div>
+      <div class="stat-value" id="currentStreak">0</div>
+      <div class="stat-sub">days active</div>
+    </div>
+    <div class="stat-card fire">
+      <div class="stat-label">Longest Streak</div>
+      <div class="stat-value" id="longestStreak">0</div>
+      <div class="stat-sub">personal best</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">Productive Days</div>
+      <div class="stat-value" id="productiveDays">0</div>
+      <div class="stat-sub">this year</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-label">Consistency</div>
+      <div class="stat-value" id="consistencyPct">0%</div>
+      <div class="stat-sub">year progress</div>
+    </div>
+  </div>
+
+  <!-- Main grid -->
+  <div class="main-grid">
+
+    <!-- Tasks -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">// Daily Tasks</span>
+        <span class="panel-date" id="todayDate"></span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-top">
+          <span class="progress-label">Daily Progress</span>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="task-list">
+        <div class="task-item" id="task-0" onclick="toggleTask(0)">
+          <div class="task-check">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">Java + Extra Learning</div>
+            <div class="task-meta">8:30 AM – 12:30 PM · Core Java, Advanced Java, APIs, Frameworks</div>
+          </div>
+          <div class="task-badge badge-java">4 HRS</div>
+        </div>
+        <div class="task-item" id="task-1" onclick="toggleTask(1)">
+          <div class="task-check">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">SQL</div>
+            <div class="task-meta">1:00 PM – 3:00 PM · Queries, Joins, Subqueries, PL/SQL, Optimization</div>
+          </div>
+          <div class="task-badge badge-sql">2 HRS</div>
+        </div>
+        <div class="task-item" id="task-2" onclick="toggleTask(2)">
+          <div class="task-check">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">DSA</div>
+            <div class="task-meta">5:00 PM – 8:00 PM · Arrays, Trees, Graphs, DP, Problem Solving</div>
+          </div>
+          <div class="task-badge badge-dsa">3 HRS</div>
+        </div>
+        <div class="task-item" id="task-3" onclick="toggleTask(3)">
+          <div class="task-check">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="task-info">
+            <div class="task-name">System Design</div>
+            <div class="task-meta">9:00 PM – 10:00 PM · Scalability, Distributed Systems, Caching</div>
+          </div>
+          <div class="task-badge badge-sys">1 HR</div>
+        </div>
+      </div>
+      <div class="mark-btn-wrap">
+        <button class="mark-btn" id="markBtn" onclick="markDayComplete()">⬡ Mark Day as Complete</button>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div class="right-col">
+      <!-- Streak panel -->
+      <div class="streak-panel">
+        <div class="stat-label">CURRENT STREAK</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px">
+          <div class="streak-num" id="streakBig">0</div>
+          <div style="font-size:28px;line-height:1">🔥</div>
+        </div>
+        <div class="streak-label">consecutive days</div>
+        <div class="streak-divider"></div>
+        <div class="streak-rows">
+          <div class="streak-row">
+            <span class="streak-row-label">Longest streak</span>
+            <span class="streak-row-val" id="sLongest">0 days</span>
+          </div>
+          <div class="streak-row">
+            <span class="streak-row-label">Productive days</span>
+            <span class="streak-row-val" id="sProd">0 days</span>
+          </div>
+          <div class="streak-row">
+            <span class="streak-row-label">Total hours logged</span>
+            <span class="streak-row-val" id="sHours">0h</span>
+          </div>
+          <div class="streak-row">
+            <span class="streak-row-label">Last active</span>
+            <span class="streak-row-val" id="sLast">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Year progress -->
+      <div class="year-panel">
+        <div class="ring-wrap">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="28" fill="none" stroke="#1a2230" stroke-width="6"/>
+            <circle cx="32" cy="32" r="28" fill="none" stroke="#00ff88" stroke-width="6"
+              stroke-dasharray="175.9" id="yearRing"
+              stroke-dashoffset="175.9" stroke-linecap="round"/>
+          </svg>
+          <div class="ring-center" id="yearPct">0%</div>
+        </div>
+        <div class="year-info">
+          <div class="year-title">Year Progress</div>
+          <div class="year-sub" id="yearDayCount">Day 0 of 365</div>
+          <div class="year-subsub" id="yearRemaining">365 days remaining</div>
+        </div>
+      </div>
+
+      <!-- Schedule -->
+      <div class="sched-panel">
+        <div class="panel-header">
+          <span class="panel-title">// Today's Schedule</span>
+          <span class="panel-date">10 HRS TOTAL</span>
+        </div>
+        <div class="sched-item">
+          <div class="sched-dot" style="background:#ff9a3c"></div>
+          <div class="sched-content">
+            <div class="sched-name">Java + Extra Learning</div>
+            <div class="sched-time">8:30 AM – 12:30 PM</div>
+            <div class="sched-dur" style="color:#ff9a3c">4 hours</div>
+          </div>
+        </div>
+        <div class="sched-item">
+          <div class="sched-dot" style="background:#4fa3e0"></div>
+          <div class="sched-content">
+            <div class="sched-name">SQL</div>
+            <div class="sched-time">1:00 PM – 3:00 PM</div>
+            <div class="sched-dur" style="color:#4fa3e0">2 hours</div>
+          </div>
+        </div>
+        <div class="sched-item">
+          <div class="sched-dot" style="background:#00ff88"></div>
+          <div class="sched-content">
+            <div class="sched-name">DSA</div>
+            <div class="sched-time">5:00 PM – 8:00 PM</div>
+            <div class="sched-dur" style="color:#00ff88">3 hours</div>
+          </div>
+        </div>
+        <div class="sched-item">
+          <div class="sched-dot" style="background:#c084fc"></div>
+          <div class="sched-content">
+            <div class="sched-name">System Design</div>
+            <div class="sched-time">9:00 PM – 10:00 PM</div>
+            <div class="sched-dur" style="color:#c084fc">1 hour</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Heatmap -->
+  <div class="heatmap-panel">
+    <div class="heatmap-header">
+      <span class="panel-title">// 365-Day Activity Heatmap</span>
+      <span class="panel-date" id="heatmapYear"></span>
+    </div>
+    <div id="monthLabels" class="month-labels"></div>
+    <div class="heatmap-grid" id="heatmapGrid"></div>
+    <div class="heatmap-legend">
+      <span class="legend-label">Less</span>
+      <div class="legend-cell" style="background:#1a2230"></div>
+      <div class="legend-cell" style="background:#0d3320"></div>
+      <div class="legend-cell" style="background:#1a5c3a"></div>
+      <div class="legend-cell" style="background:#00cc6a"></div>
+      <div class="legend-cell" style="background:#00ff88;box-shadow:0 0 4px rgba(0,255,136,0.6)"></div>
+      <span class="legend-label">More</span>
+    </div>
+  </div>
+
+  <!-- GitHub backup -->
+  <div class="github-panel">
+    <div class="github-info">
+      <h3>☁ GitHub Cloud Backup</h3>
+      <p>Sync progress via GitHub Gists — restore anytime, anywhere</p>
+    </div>
+    <div class="github-actions">
+      <input class="github-input" type="password" id="ghToken" placeholder="ghp_your_personal_access_token" />
+      <button class="btn" onclick="pushBackup()">↑ Push Backup</button>
+      <button class="btn" onclick="restoreBackup()">↓ Restore</button>
+    </div>
+  </div>
+
 </div>
 
-<div class="stats">
-
-<div class="stat">
-<h2 id="currentStreak">0</h2>
-<p>Current Streak 🔥</p>
+<!-- Preview Modal -->
+<div class="modal-overlay" id="previewModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closePreview()">✕</button>
+    <h2>Analytics <span>Snapshot</span></h2>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="modal-stat-val" id="mCurrent">0</div>
+        <div class="modal-stat-label">Current Streak</div>
+      </div>
+      <div class="modal-stat">
+        <div class="modal-stat-val fire" id="mLongest">0</div>
+        <div class="modal-stat-label">Longest Streak</div>
+      </div>
+      <div class="modal-stat">
+        <div class="modal-stat-val blue" id="mProd">0</div>
+        <div class="modal-stat-label">Productive Days</div>
+      </div>
+      <div class="modal-stat">
+        <div class="modal-stat-val amber" id="mYear">0%</div>
+        <div class="modal-stat-label">Year Progress</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+      <div class="streak-row" style="margin-bottom:8px">
+        <span class="streak-row-label" style="font-size:12px">Total hours studied</span>
+        <span class="streak-row-val" id="mHours">0h</span>
+      </div>
+      <div class="streak-row">
+        <span class="streak-row-label" style="font-size:12px">Today's progress</span>
+        <span class="streak-row-val" id="mToday">0%</span>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="stat">
-<h2 id="longestStreak">0</h2>
-<p>Longest Streak 🏆</p>
-</div>
-
-<div class="stat">
-<h2 id="productiveDays">0</h2>
-<p>Productive Days 📅</p>
-</div>
-
-<div class="stat">
-<h2 id="yearPercent">0%</h2>
-<p>Year Progress 📈</p>
-</div>
-
-</div>
-
-<div class="tasks">
-
-<div class="card">
-<h3>Java + Extra Learning</h3>
-<p>8:30 AM – 12:30 PM</p>
-<div class="hours">4 hrs</div>
-<div class="check">
-<input type="checkbox" class="task">
-<span>Completed</span>
-</div>
-</div>
-
-<div class="card">
-<h3>SQL</h3>
-<p>1:00 PM – 3:00 PM</p>
-<div class="hours">2 hrs</div>
-<div class="check">
-<input type="checkbox" class="task">
-<span>Completed</span>
-</div>
-</div>
-
-<div class="card">
-<h3>DSA</h3>
-<p>5:00 PM – 8:00 PM</p>
-<div class="hours">3 hrs</div>
-<div class="check">
-<input type="checkbox" class="task">
-<span>Completed</span>
-</div>
-</div>
-
-<div class="card">
-<h3>System Design</h3>
-<p>9:00 PM – 10:00 PM</p>
-<div class="hours">1 hr</div>
-<div class="check">
-<input type="checkbox" class="task">
-<span>Completed</span>
-</div>
-</div>
-
-</div>
-
-<div class="progress-container">
-
-<div class="progress-top">
-<h3>Today's Completion</h3>
-<span id="percentage">0%</span>
-</div>
-
-<div class="progress-bar">
-<div class="progress" id="progress"></div>
-</div>
-
-</div>
-
-<div class="heatmap-section">
-
-<h2>365 Day Heatmap</h2>
-
-<div class="heatmap" id="heatmap"></div>
-
-<div class="buttons">
-
-<button class="complete" onclick="completeDay()">
-Mark Day Complete
-</button>
-
-<button class="reset" onclick="resetToday()">
-Reset
-</button>
-
-<button class="push" onclick="pushBackup()">
-Push Backup
-</button>
-
-<button class="pull" onclick="restoreBackup()">
-Restore Backup
-</button>
-
-<button class="preview" onclick="previewData()">
-Preview
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- MODAL -->
-
-<div class="modal" id="modal">
-
-<div class="modal-content">
-
-<h2>Progress Summary</h2>
-
-<p id="p1"></p>
-<p id="p2"></p>
-<p id="p3"></p>
-<p id="p4"></p>
-
-<button class="close-btn" id="closeModalBtn">
-Close
-</button>
-
-</div>
-
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-
-/* =========================
-   GITHUB CONFIG
-========================= */
-
-const GITHUB_TOKEN = "";
-// ADD YOUR TOKEN
-
-const GIST_ID = "";
-// ADD YOUR GIST ID
-
-/* =========================
-   ELEMENTS
-========================= */
-
-const tasks =
-document.querySelectorAll(".task");
-
-const progress =
-document.getElementById("progress");
-
-const percentage =
-document.getElementById("percentage");
-
-const heatmap =
-document.getElementById("heatmap");
-
-const modal =
-document.getElementById("modal");
-
-const closeModalBtn =
-document.getElementById("closeModalBtn");
-
-/* =========================
-   STORAGE
-========================= */
-
-let data =
-JSON.parse(
-localStorage.getItem("yearTracker")
-) || {
-
-completedDays:{},
-currentStreak:0,
-longestStreak:0
-
+// State
+let state = {
+  currentStreak: 0,
+  longestStreak: 0,
+  productiveDays: 0,
+  tasks: [false, false, false, false],
+  heatmap: {},
+  lastCompleted: null,
+  totalHours: 0
 };
 
-/* =========================
-   CREATE HEATMAP
-========================= */
+const TASK_HOURS = [4, 2, 3, 1];
 
-for(let i=1;i<=365;i++){
-
-const box =
-document.createElement("div");
-
-box.className =
-"day";
-
-box.id =
-"day-"+i;
-
-heatmap.appendChild(box);
-
+// Load from localStorage
+function loadState() {
+  try {
+    const saved = localStorage.getItem('sde_streak_pro');
+    if (saved) state = { ...state, ...JSON.parse(saved) };
+  } catch(e) {}
 }
 
-/* =========================
-   LOAD SAVED DATA
-========================= */
+function saveState() {
+  try {
+    localStorage.setItem('sde_streak_pro', JSON.stringify(state));
+  } catch(e) {}
+}
 
-Object.keys(
-data.completedDays
-).forEach(day=>{
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
 
-updateHeatmapColor(
-day,
-data.completedDays[day]
-);
+function todayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
 
+function toggleTask(idx) {
+  const key = todayKey();
+  // Don't allow toggling if day already marked complete
+  if (state.heatmap[key] === 4) return;
+  state.tasks[idx] = !state.tasks[idx];
+  document.getElementById('task-' + idx).classList.toggle('done', state.tasks[idx]);
+  updateProgress();
+  saveState();
+}
+
+function updateProgress() {
+  const done = state.tasks.filter(Boolean).length;
+  const pct = Math.round((done / 4) * 100);
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function markDayComplete() {
+  const key = todayKey();
+  const done = state.tasks.filter(Boolean).length;
+
+  if (done === 0) {
+    showToast('✗ Complete at least one task first!');
+    return;
+  }
+
+  // Already completed today?
+  if (state.heatmap[key] === 4 && done === 4) {
+    showToast('✓ Already marked complete today!');
+    return;
+  }
+
+  // Determine level
+  const level = done === 4 ? 4 : done >= 3 ? 3 : done >= 2 ? 2 : 1;
+  state.heatmap[key] = level;
+
+  // Hours
+  let hrs = 0;
+  state.tasks.forEach((v, i) => { if(v) hrs += TASK_HOURS[i]; });
+
+  // Streak logic
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yKey = yesterday.toISOString().slice(0, 10);
+
+  if (state.lastCompleted === yKey || state.lastCompleted === key) {
+    if (state.lastCompleted !== key) state.currentStreak++;
+  } else {
+    state.currentStreak = 1;
+  }
+
+  if (state.lastCompleted !== key) {
+    state.productiveDays++;
+    state.totalHours = (state.totalHours || 0) + hrs;
+  }
+
+  state.lastCompleted = key;
+  if (state.currentStreak > state.longestStreak) state.longestStreak = state.currentStreak;
+
+  saveState();
+  renderAll();
+  renderHeatmap();
+  showToast(level === 4 ? '🎉 Perfect day! Streak: ' + state.currentStreak : '✓ Day logged! Keep going!');
+}
+
+function renderAll() {
+  document.getElementById('currentStreak').textContent = state.currentStreak;
+  document.getElementById('longestStreak').textContent = state.longestStreak;
+  document.getElementById('productiveDays').textContent = state.productiveDays;
+
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 1);
+  const dayOfYear = Math.ceil((now - start) / 86400000);
+  const pct = Math.round((state.productiveDays / dayOfYear) * 100);
+  document.getElementById('consistencyPct').textContent = pct + '%';
+
+  document.getElementById('streakBig').textContent = state.currentStreak;
+  document.getElementById('sLongest').textContent = state.longestStreak + ' days';
+  document.getElementById('sProd').textContent = state.productiveDays + ' days';
+  document.getElementById('sHours').textContent = (state.totalHours || 0) + 'h';
+
+  const lastD = state.lastCompleted ? new Date(state.lastCompleted).toLocaleDateString('en', {month:'short',day:'numeric'}) : '—';
+  document.getElementById('sLast').textContent = lastD;
+
+  // Year ring
+  const yearPct = Math.round((dayOfYear / 365) * 100);
+  document.getElementById('yearPct').textContent = yearPct + '%';
+  document.getElementById('yearDayCount').textContent = 'Day ' + dayOfYear + ' of 365';
+  document.getElementById('yearRemaining').textContent = (365 - dayOfYear) + ' days remaining';
+  const circ = 175.9;
+  const offset = circ - (circ * yearPct / 100);
+  document.getElementById('yearRing').style.strokeDashoffset = offset;
+
+  // Date
+  const opts = { weekday:'short', month:'short', day:'numeric', year:'numeric' };
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en', opts);
+  document.getElementById('heatmapYear').textContent = now.getFullYear();
+
+  // Tasks visual state
+  state.tasks.forEach((v, i) => {
+    document.getElementById('task-' + i).classList.toggle('done', v);
+  });
+  updateProgress();
+}
+
+function renderHeatmap() {
+  const grid = document.getElementById('heatmapGrid');
+  const monthLabels = document.getElementById('monthLabels');
+  grid.innerHTML = '';
+  monthLabels.innerHTML = '';
+
+  const today = new Date();
+  const start = new Date(today);
+  start.setDate(start.getDate() - 364);
+  // Align to Sunday
+  start.setDate(start.getDate() - start.getDay());
+
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  let currentMonth = -1;
+  let weekIdx = 0;
+
+  const totalWeeks = 53;
+  for (let w = 0; w < totalWeeks; w++) {
+    const col = document.createElement('div');
+    col.className = 'heatmap-col';
+
+    for (let d = 0; d < 7; d++) {
+      const date = new Date(start);
+      date.setDate(start.getDate() + w * 7 + d);
+
+      const cell = document.createElement('div');
+      cell.className = 'heatmap-cell';
+
+      const key = date.toISOString().slice(0, 10);
+      const level = state.heatmap[key] || 0;
+      if (level > 0) cell.classList.add('l' + level);
+
+      const dateStr = date.toLocaleDateString('en', {month:'short', day:'numeric', year:'numeric'});
+      const lvlTxt = ['No activity','Low','Moderate','High','Full completion'];
+      cell.title = dateStr + ' — ' + lvlTxt[level];
+
+      col.appendChild(cell);
+
+      // Month label
+      if (d === 0 && date.getMonth() !== currentMonth) {
+        currentMonth = date.getMonth();
+        const lbl = document.createElement('div');
+        lbl.className = 'month-label';
+        lbl.style.marginLeft = (w * 16) + 'px';
+        lbl.textContent = months[currentMonth];
+        if (w === 0) lbl.style.marginLeft = '0';
+        monthLabels.appendChild(lbl);
+      }
+    }
+
+    grid.appendChild(col);
+  }
+}
+
+function openPreview() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 1);
+  const dayOfYear = Math.ceil((now - start) / 86400000);
+  const pct = Math.round((state.productiveDays / dayOfYear) * 100);
+
+  document.getElementById('mCurrent').textContent = state.currentStreak;
+  document.getElementById('mLongest').textContent = state.longestStreak;
+  document.getElementById('mProd').textContent = state.productiveDays;
+  document.getElementById('mYear').textContent = pct + '%';
+  document.getElementById('mHours').textContent = (state.totalHours || 0) + 'h';
+
+  const done = state.tasks.filter(Boolean).length;
+  document.getElementById('mToday').textContent = Math.round(done / 4 * 100) + '%';
+
+  document.getElementById('previewModal').classList.add('show');
+}
+
+function closePreview() {
+  document.getElementById('previewModal').classList.remove('show');
+}
+
+document.getElementById('previewModal').addEventListener('click', function(e) {
+  if (e.target === this) closePreview();
 });
 
-updateStats();
-updateProgress();
-
-/* =========================
-   TASK EVENTS
-========================= */
-
-tasks.forEach(task=>{
-
-task.addEventListener(
-"change",
-updateProgress
-);
-
-});
-
-/* =========================
-   UPDATE PROGRESS
-========================= */
-
-function updateProgress(){
-
-let completed = 0;
-
-tasks.forEach(task=>{
-
-if(task.checked){
-
-completed++;
-
+// GitHub backup stubs
+function pushBackup() {
+  const token = document.getElementById('ghToken').value.trim();
+  if (!token) { showToast('⚠ Enter your GitHub token first'); return; }
+  showToast('↑ Pushing backup to GitHub Gists...');
+  const data = JSON.stringify(state, null, 2);
+  fetch('https://api.github.com/gists', {
+    method: 'POST',
+    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ description: 'SDE Streak Tracker Backup', public: false, files: { 'sde_streak.json': { content: data } } })
+  }).then(r => {
+    if (r.ok) { showToast('✓ Backup pushed successfully!'); }
+    else { showToast('✗ Push failed — check token & permissions'); }
+  }).catch(() => showToast('✗ Network error — check connection'));
 }
 
-});
-
-const percent =
-(completed/tasks.length)*100;
-
-progress.style.width =
-percent + "%";
-
-percentage.innerText =
-Math.floor(percent) + "%";
-
+function restoreBackup() {
+  const token = document.getElementById('ghToken').value.trim();
+  if (!token) { showToast('⚠ Enter your GitHub token first'); return; }
+  showToast('↓ Searching for backup...');
+  fetch('https://api.github.com/gists', {
+    headers: { 'Authorization': 'token ' + token }
+  }).then(r => r.json()).then(gists => {
+    const g = gists.find(x => x.description === 'SDE Streak Tracker Backup');
+    if (!g) { showToast('✗ No backup found in Gists'); return; }
+    return fetch(g.url, { headers: { 'Authorization': 'token ' + token } });
+  }).then(r => r && r.json()).then(g => {
+    if (!g) return;
+    const raw = g.files['sde_streak.json']?.content;
+    if (!raw) return;
+    state = { ...state, ...JSON.parse(raw) };
+    saveState();
+    renderAll();
+    renderHeatmap();
+    showToast('✓ Backup restored successfully!');
+  }).catch(() => showToast('✗ Restore failed — check token'));
 }
 
-/* =========================
-   UPDATE HEATMAP
-========================= */
-
-function updateHeatmapColor(day,level){
-
-const box =
-document.getElementById(
-"day-"+day
-);
-
-if(!box) return;
-
-box.className = "day";
-
-if(level===1){
-
-box.classList.add("level-1");
-
-}
-else if(level===2){
-
-box.classList.add("level-2");
-
-}
-else if(level===3){
-
-box.classList.add("level-3");
-
-}
-else if(level>=4){
-
-box.classList.add("level-4");
-
-}
-
-}
-
-/* =========================
-   UPDATE STATS
-========================= */
-
-function updateStats(){
-
-document.getElementById(
-"currentStreak"
-).innerText =
-data.currentStreak;
-
-document.getElementById(
-"longestStreak"
-).innerText =
-data.longestStreak;
-
-document.getElementById(
-"productiveDays"
-).innerText =
-Object.keys(
-data.completedDays
-).length;
-
-document.getElementById(
-"yearPercent"
-).innerText =
-(
-Object.keys(
-data.completedDays
-).length / 365 * 100
-).toFixed(1) + "%";
-
-}
-
-/* =========================
-   GET CURRENT DAY
-========================= */
-
-function getCurrentDay(){
-
-return Math.floor(
-(
-new Date() -
-new Date(
-new Date().getFullYear(),
-0,
-0
-)
-) /
-(1000*60*60*24)
-);
-
-}
-
-/* =========================
-   COMPLETE DAY
-========================= */
-
-function completeDay(){
-
-let completed = 0;
-
-tasks.forEach(task=>{
-
-if(task.checked){
-
-completed++;
-
-}
-
-});
-
-if(completed===0){
-
-alert(
-"Complete at least one task"
-);
-
-return;
-
-}
-
-const day =
-getCurrentDay();
-
-data.completedDays[day] =
-completed;
-
-updateHeatmapColor(
-day,
-completed
-);
-
-if(completed===tasks.length){
-
-data.currentStreak++;
-
-if(
-data.currentStreak >
-data.longestStreak
-){
-
-data.longestStreak =
-data.currentStreak;
-
-}
-
-}
-
-localStorage.setItem(
-"yearTracker",
-JSON.stringify(data)
-);
-
-updateStats();
-
-alert(
-"🔥 Day Saved Successfully"
-);
-
-}
-
-/* =========================
-   RESET
-========================= */
-
-function resetToday(){
-
-tasks.forEach(task=>{
-
-task.checked = false;
-
-});
-
-updateProgress();
-
-}
-
-/* =========================
-   PREVIEW
-========================= */
-
-function previewData(){
-
-document.getElementById("p1").innerHTML =
-"🔥 Current Streak: <b>" +
-data.currentStreak +
-"</b>";
-
-document.getElementById("p2").innerHTML =
-"🏆 Longest Streak: <b>" +
-data.longestStreak +
-"</b>";
-
-document.getElementById("p3").innerHTML =
-"📅 Productive Days: <b>" +
-Object.keys(data.completedDays).length +
-"</b>";
-
-document.getElementById("p4").innerHTML =
-"📈 Year Progress: <b>" +
-(
-Object.keys(data.completedDays).length
-/365*100
-).toFixed(1) +
-"%</b>";
-
-modal.style.display = "flex";
-
-}
-
-/* =========================
-   CLOSE MODAL
-========================= */
-
-closeModalBtn.addEventListener(
-"click",
-function(){
-
-modal.style.display = "none";
-
-}
-);
-
-window.addEventListener(
-"click",
-function(e){
-
-if(e.target === modal){
-
-modal.style.display = "none";
-
-}
-
-}
-);
-
-/* =========================
-   PUSH BACKUP
-========================= */
-
-async function pushBackup(){
-
-if(!GITHUB_TOKEN || !GIST_ID){
-
-alert(
-"Add GitHub Token and Gist ID"
-);
-
-return;
-
-}
-
-try{
-
-const response =
-await fetch(
-
-`https://api.github.com/gists/${GIST_ID}`,
-
-{
-method:"PATCH",
-
-headers:{
-
-"Authorization":
-`token ${GITHUB_TOKEN}`,
-
-"Content-Type":
-"application/json"
-
-},
-
-body:JSON.stringify({
-
-files:{
-
-"streak-data.json":{
-
-content:JSON.stringify(
-data,
-null,
-2
-)
-
-}
-
-}
-
-})
-
-}
-
-);
-
-if(response.ok){
-
-alert(
-"✅ Backup Pushed"
-);
-
-}else{
-
-alert(
-"❌ Push Failed"
-);
-
-}
-
-}catch(error){
-
-alert(
-"❌ Network Error"
-);
-
-}
-
-}
-
-/* =========================
-   RESTORE BACKUP
-========================= */
-
-async function restoreBackup(){
-
-if(!GIST_ID){
-
-alert(
-"Add Gist ID"
-);
-
-return;
-
-}
-
-try{
-
-const response =
-await fetch(
-`https://api.github.com/gists/${GIST_ID}`
-);
-
-const gist =
-await response.json();
-
-const content =
-gist.files[
-"streak-data.json"
-].content;
-
-data =
-JSON.parse(content);
-
-localStorage.setItem(
-"yearTracker",
-JSON.stringify(data)
-);
-
-alert(
-"✅ Backup Restored"
-);
-
-location.reload();
-
-}catch(error){
-
-alert(
-"❌ Restore Failed"
-);
-
-}
-
-}
-
+// Init
+loadState();
+renderAll();
+renderHeatmap();
 </script>
-
 </body>
 </html>
