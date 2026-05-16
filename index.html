@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>SDE Streak Tracker Pro</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,9 +19,12 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#0d1117;
+background:
+radial-gradient(circle at top,#161b22,#0d1117 60%);
 color:white;
+min-height:100vh;
 padding:30px;
+overflow-x:hidden;
 }
 
 .container{
@@ -29,15 +34,25 @@ margin:auto;
 
 .header{
 margin-bottom:40px;
+animation:fadeDown 1s ease;
 }
 
 .header h1{
-font-size:48px;
+font-size:52px;
+font-weight:700;
+background:linear-gradient(
+90deg,
+#58a6ff,
+#39d353
+);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .header p{
 margin-top:10px;
 color:#8b949e;
+font-size:18px;
 }
 
 .stats{
@@ -48,14 +63,24 @@ margin-bottom:40px;
 }
 
 .stat{
-background:#161b22;
+background:rgba(22,27,34,.7);
+backdrop-filter:blur(10px);
 padding:30px;
-border-radius:20px;
-border:1px solid #30363d;
+border-radius:24px;
+border:1px solid rgba(255,255,255,.08);
+transition:.4s;
+position:relative;
+overflow:hidden;
+}
+
+.stat:hover{
+transform:translateY(-8px);
+box-shadow:
+0 10px 40px rgba(0,0,0,.4);
 }
 
 .stat h2{
-font-size:40px;
+font-size:44px;
 color:#58a6ff;
 }
 
@@ -66,24 +91,52 @@ color:#8b949e;
 
 .tasks{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
 margin-bottom:40px;
 }
 
 .card{
-background:#161b22;
+background:rgba(22,27,34,.75);
+backdrop-filter:blur(14px);
 padding:30px;
-border-radius:20px;
-border:1px solid #30363d;
-transition:.3s;
+border-radius:24px;
+border:1px solid rgba(255,255,255,.08);
+position:relative;
+overflow:hidden;
+transition:.4s;
+}
+
+.card::before{
+content:'';
+position:absolute;
+top:0;
+left:-120%;
+width:100%;
+height:100%;
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.08),
+transparent
+);
+transition:.8s;
+}
+
+.card:hover::before{
+left:120%;
 }
 
 .card:hover{
-transform:translateY(-5px);
+transform:
+translateY(-10px)
+scale(1.03);
+box-shadow:
+0 15px 45px rgba(0,0,0,.45);
 }
 
 .card h3{
+font-size:24px;
 margin-bottom:10px;
 }
 
@@ -92,43 +145,43 @@ color:#8b949e;
 }
 
 .hours{
-font-size:35px;
-font-weight:bold;
+font-size:40px;
+font-weight:700;
 margin:20px 0;
+color:#39d353;
 }
-
-/* ========= CHECKBOX SECTION (UNCHANGED) ========= */
 
 .check{
 display:flex;
 align-items:center;
 gap:12px;
+margin-top:10px;
 }
 
 .check input{
-width:22px;
-height:22px;
+width:24px;
+height:24px;
 cursor:pointer;
+accent-color:#39d353;
 }
 
-/* ================================================ */
-
 .progress-container{
-background:#161b22;
+background:rgba(22,27,34,.75);
+backdrop-filter:blur(14px);
 padding:30px;
-border-radius:20px;
-border:1px solid #30363d;
+border-radius:24px;
+border:1px solid rgba(255,255,255,.08);
 margin-bottom:40px;
 }
 
 .progress-top{
 display:flex;
 justify-content:space-between;
-margin-bottom:15px;
+margin-bottom:18px;
 }
 
 .progress-bar{
-height:18px;
+height:22px;
 background:#21262d;
 border-radius:50px;
 overflow:hidden;
@@ -137,51 +190,88 @@ overflow:hidden;
 .progress{
 height:100%;
 width:0%;
+border-radius:50px;
 background:linear-gradient(
 90deg,
 #58a6ff,
-#3fb950
+#39d353
 );
-transition:.4s;
+transition:.5s;
+animation:glow 2s infinite alternate;
 }
 
 .heatmap-section{
-background:#161b22;
+background:rgba(22,27,34,.75);
+backdrop-filter:blur(14px);
 padding:30px;
-border-radius:20px;
-border:1px solid #30363d;
+border-radius:24px;
+border:1px solid rgba(255,255,255,.08);
 }
 
 .heatmap{
 display:grid;
 grid-template-columns:repeat(30,1fr);
-gap:5px;
-margin-top:20px;
+gap:6px;
+margin-top:25px;
 }
 
 .day{
 aspect-ratio:1;
+border-radius:5px;
 background:#21262d;
-border-radius:4px;
+transition:.25s;
 }
 
-.completed{
-background:#3fb950;
+.day:hover{
+transform:scale(1.2);
+}
+
+/* LEETCODE STYLE */
+
+.level-0{
+background:#21262d;
+}
+
+.level-1{
+background:#0e4429;
+}
+
+.level-2{
+background:#006d32;
+}
+
+.level-3{
+background:#26a641;
+}
+
+.level-4{
+background:#39d353;
+box-shadow:
+0 0 12px #39d353;
 }
 
 .buttons{
 display:flex;
 flex-wrap:wrap;
-gap:15px;
-margin-top:30px;
+gap:16px;
+margin-top:35px;
 }
 
 button{
-padding:14px 22px;
+padding:14px 24px;
 border:none;
-border-radius:12px;
+border-radius:14px;
 cursor:pointer;
 font-weight:600;
+font-size:15px;
+transition:.3s;
+}
+
+button:hover{
+transform:
+translateY(-4px)
+scale(1.05);
+filter:brightness(1.1);
 }
 
 .complete{
@@ -194,19 +284,19 @@ background:#ff4d6d;
 color:white;
 }
 
-.push{
+.preview{
 background:#58a6ff;
 color:white;
 }
 
-.pull{
+.push{
 background:#8957e5;
 color:white;
 }
 
-.preview{
-background:orange;
-color:black;
+.pull{
+background:#f78166;
+color:white;
 }
 
 .modal{
@@ -216,32 +306,75 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.8);
+background:rgba(0,0,0,.7);
 justify-content:center;
 align-items:center;
-z-index:1000;
+z-index:999;
 }
 
 .modal-content{
 background:#161b22;
-padding:30px;
-border-radius:20px;
+padding:35px;
+border-radius:24px;
 width:350px;
 border:1px solid #30363d;
+animation:popup .3s ease;
 }
 
 .modal-content p{
 margin:12px 0;
+font-size:17px;
 }
 
 .close{
-width:100%;
 margin-top:20px;
+width:100%;
 background:#58a6ff;
 color:white;
 }
 
+@keyframes glow{
+
+from{
+filter:brightness(1);
+}
+
+to{
+filter:brightness(1.3);
+}
+
+}
+
+@keyframes popup{
+
+from{
+transform:scale(.8);
+opacity:0;
+}
+
+to{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+@keyframes fadeDown{
+
+from{
+opacity:0;
+transform:translateY(-40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
@@ -252,7 +385,7 @@ color:white;
 
 <h1>SDE Streak Tracker</h1>
 
-<p>Zoho Preparation Dashboard</p>
+<p>LeetCode Style Productivity Dashboard 🚀</p>
 
 </div>
 
@@ -280,60 +413,49 @@ color:white;
 
 </div>
 
-
 <div class="tasks">
 
 <div class="card">
 <h3>Java + Extra Learning</h3>
-<p>8:30–12:30 PM</p>
+<p>8:30 AM – 12:30 PM</p>
 <div class="hours">4 hrs</div>
-
-<!-- UNCHANGED -->
 <div class="check">
 <input type="checkbox" class="task">
 <span>Completed</span>
 </div>
-
 </div>
 
 <div class="card">
 <h3>SQL</h3>
-<p>1:00–3:00 PM</p>
+<p>1:00 PM – 3:00 PM</p>
 <div class="hours">2 hrs</div>
-
 <div class="check">
 <input type="checkbox" class="task">
 <span>Completed</span>
 </div>
-
 </div>
 
 <div class="card">
 <h3>DSA</h3>
-<p>5:00–8:00 PM</p>
+<p>5:00 PM – 8:00 PM</p>
 <div class="hours">3 hrs</div>
-
 <div class="check">
 <input type="checkbox" class="task">
 <span>Completed</span>
 </div>
-
 </div>
 
 <div class="card">
 <h3>System Design</h3>
-<p>9:00–10:00 PM</p>
+<p>9:00 PM – 10:00 PM</p>
 <div class="hours">1 hr</div>
-
 <div class="check">
 <input type="checkbox" class="task">
 <span>Completed</span>
 </div>
-
 </div>
 
 </div>
-
 
 <div class="progress-container">
 
@@ -343,46 +465,36 @@ color:white;
 </div>
 
 <div class="progress-bar">
-
-<div class="progress"
-id="progress"></div>
-
+<div class="progress" id="progress"></div>
 </div>
 
 </div>
-
 
 <div class="heatmap-section">
 
 <h2>365 Day Heatmap</h2>
 
-<div id="heatmap"
-class="heatmap"></div>
+<div id="heatmap" class="heatmap"></div>
 
 <div class="buttons">
 
-<button class="complete"
-onclick="completeDay()">
+<button class="complete" onclick="completeDay()">
 Mark Day Complete
 </button>
 
-<button class="reset"
-onclick="resetToday()">
+<button class="reset" onclick="resetToday()">
 Reset
 </button>
 
-<button class="push"
-onclick="pushToGitHub()">
+<button class="push" onclick="pushBackup()">
 Push Backup
 </button>
 
-<button class="pull"
-onclick="pullFromGitHub()">
+<button class="pull" onclick="restoreBackup()">
 Restore Backup
 </button>
 
-<button class="preview"
-onclick="previewData()">
+<button class="preview" onclick="previewData()">
 Preview
 </button>
 
@@ -391,7 +503,6 @@ Preview
 </div>
 
 </div>
-
 
 <div class="modal" id="modal">
 
@@ -404,208 +515,177 @@ Preview
 <p id="p3"></p>
 <p id="p4"></p>
 
-<button class="close"
-onclick="closePreview()">
-
+<button class="close" onclick="closePreview()">
 Close
-
 </button>
 
 </div>
 
 </div>
 
-
 <script>
 
-/* =======================
-UPDATE ONLY THESE
-======================= */
+/*
+IMPORTANT:
 
-const GITHUB_TOKEN=
-"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";
+1. REVOKE OLD EXPOSED TOKEN
+2. CREATE NEW TOKEN
+3. PASTE BELOW
+*/
 
-const GIST_ID=
-"de18a147db1c301e5682ed0f59756e73";
+const GITHUB_TOKEN = "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";
 
-/* ======================= */
+const GIST_ID = "de18a147db1c301e5682ed0f59756e73";
 
+const tasks = document.querySelectorAll(".task");
 
-const tasks=
-document.querySelectorAll(".task");
+const progress = document.getElementById("progress");
 
-const progress=
-document.getElementById("progress");
+const percentage = document.getElementById("percentage");
 
-const percentage=
-document.getElementById("percentage");
+const heatmap = document.getElementById("heatmap");
 
-const heatmap=
-document.getElementById("heatmap");
+const modal = document.getElementById("modal");
 
+const p1 = document.getElementById("p1");
+const p2 = document.getElementById("p2");
+const p3 = document.getElementById("p3");
+const p4 = document.getElementById("p4");
 
-let data=
-JSON.parse(
-localStorage.getItem(
-"yearTracker"
-)
-)
-||
-{
-completedDays:[],
+let data = JSON.parse(localStorage.getItem("yearTracker")) || {
+
+completedDays:{},
 currentStreak:0,
 longestStreak:0
+
 };
 
+/* CREATE HEATMAP */
 
 for(let i=1;i<=365;i++){
 
-let box=
-document.createElement("div");
+const box = document.createElement("div");
 
-box.className="day";
+box.className = "day level-0";
 
-box.id=
-"day-"+i;
+box.id = "day-"+i;
 
 heatmap.appendChild(box);
 
 }
 
+/* LOAD DATA */
 
-data.completedDays.forEach(day=>{
+Object.keys(data.completedDays).forEach(day=>{
 
-document
-.getElementById(
-"day-"+day
-)
-?.classList.add(
-"completed"
-);
+updateHeatmapColor(day,data.completedDays[day]);
 
 });
-
-
-function updateStats(){
-
-currentStreak.innerText=
-data.currentStreak;
-
-longestStreak.innerText=
-data.longestStreak;
-
-productiveDays.innerText=
-data.completedDays.length;
-
-yearPercent.innerText=
-(
-(data.completedDays.length/365)*100
-).toFixed(1)
-+"%";
-
-}
 
 updateStats();
 
+/* CHECKBOX */
 
 tasks.forEach(task=>{
 
-task.addEventListener(
-"change",
-()=>{
-
-let completed=0;
-
-tasks.forEach(t=>{
-
-if(t.checked)
-completed++;
+task.addEventListener("change",updateProgress);
 
 });
 
-let p=
-(completed/tasks.length)*100;
+function updateProgress(){
 
-progress.style.width=
-p+"%";
+let completed = 0;
 
-percentage.innerText=
-Math.floor(p)+"%";
+tasks.forEach(task=>{
 
-});
+if(task.checked) completed++;
 
 });
 
+const percent = (completed/tasks.length)*100;
+
+progress.style.width = percent+"%";
+
+percentage.innerText = Math.floor(percent)+"%";
+
+}
+
+/* STATS */
+
+function updateStats(){
+
+document.getElementById("currentStreak").innerText =
+data.currentStreak;
+
+document.getElementById("longestStreak").innerText =
+data.longestStreak;
+
+document.getElementById("productiveDays").innerText =
+Object.keys(data.completedDays).length;
+
+document.getElementById("yearPercent").innerText =
+(
+Object.keys(data.completedDays).length
+/365*100
+).toFixed(1)+"%";
+
+}
+
+/* HEATMAP COLORS */
+
+function updateHeatmapColor(day,level){
+
+const box = document.getElementById("day-"+day);
+
+box.className = "day";
+
+box.classList.add("level-"+level);
+
+}
+
+/* COMPLETE DAY */
 
 function completeDay(){
 
-let allDone=true;
+let completed = 0;
 
 tasks.forEach(task=>{
 
-if(!task.checked){
-
-allDone=false;
-
-}
+if(task.checked) completed++;
 
 });
 
-if(!allDone){
+if(completed===0){
 
-alert(
-"Complete all tasks first"
-);
+alert("Complete tasks first");
 
 return;
 
 }
 
-if(
-!confirm(
-"Mark today completed?"
-)
-){
-return;
-}
-
-const day=
-Math.floor(
-(new Date()-
-new Date(
-new Date().getFullYear(),
-0,
-0
-))
+const day = Math.floor(
+(new Date() -
+new Date(new Date().getFullYear(),0,0))
 /
 (1000*60*60*24)
 );
 
-if(
-!data.completedDays.includes(day)
-){
+data.completedDays[day] = completed;
 
-data.completedDays.push(day);
+if(completed===tasks.length){
 
 data.currentStreak++;
 
-if(
-data.currentStreak>
-data.longestStreak
-){
+if(data.currentStreak > data.longestStreak){
 
-data.longestStreak=
+data.longestStreak =
 data.currentStreak;
 
 }
 
-document
-.getElementById(
-"day-"+day
-)
-.classList.add(
-"completed"
-);
+}
+
+updateHeatmapColor(day,completed);
 
 localStorage.setItem(
 "yearTracker",
@@ -614,99 +694,76 @@ JSON.stringify(data)
 
 updateStats();
 
-alert(
-"🔥 Day Completed"
-);
+alert("🔥 Progress Saved");
 
 }
 
-}
-
+/* RESET */
 
 function resetToday(){
 
-if(
-!confirm(
-"Reset today?"
-)
-){
-return;
-}
+tasks.forEach(task=>{
 
-tasks.forEach(
-task=>{
-task.checked=false;
-}
-);
+task.checked = false;
 
-progress.style.width="0%";
+});
 
-percentage.innerText="0%";
+progress.style.width = "0%";
+
+percentage.innerText = "0%";
 
 }
 
+/* PREVIEW */
 
 function previewData(){
 
-modal.style.display=
-"flex";
+modal.style.display = "flex";
 
-p1.innerText=
-"🔥 Current Streak: "+
+p1.innerText =
+"🔥 Current Streak: " +
 data.currentStreak;
 
-p2.innerText=
-"🏆 Longest Streak: "+
+p2.innerText =
+"🏆 Longest Streak: " +
 data.longestStreak;
 
-p3.innerText=
-"📅 Productive Days: "+
-data.completedDays.length;
+p3.innerText =
+"📅 Productive Days: " +
+Object.keys(data.completedDays).length;
 
-p4.innerText=
-"📈 Progress: "+
+p4.innerText =
+"📈 Year Progress: " +
 (
-(data.completedDays.length/365)
-*100
-).toFixed(1)
-+"%";
+Object.keys(data.completedDays).length
+/365*100
+).toFixed(1)+"%";
 
 }
 
 function closePreview(){
 
-modal.style.display=
-"none";
+modal.style.display = "none";
 
 }
 
+/* PUSH BACKUP */
 
-/* GitHub backup */
-
-async function pushToGitHub(){
+async function pushBackup(){
 
 if(
-GITHUB_TOKEN==="PASTE_TOKEN_HERE"
+GITHUB_TOKEN==="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"
 ){
 
-alert(
-"Add token first"
-);
+alert("Add GitHub token");
 
 return;
-}
 
-const backup=
-JSON.stringify(
-data,
-null,
-2
-);
+}
 
 try{
 
-const res=
-await fetch(
+const response = await fetch(
 
 `https://api.github.com/gists/${GIST_ID}`,
 
@@ -715,7 +772,7 @@ method:"PATCH",
 
 headers:{
 
-Authorization:
+"Authorization":
 `token ${GITHUB_TOKEN}`,
 
 "Content-Type":
@@ -727,9 +784,13 @@ body:JSON.stringify({
 
 files:{
 
-"streak.json":{
+"streak-data.json":{
 
-content:backup
+content:JSON.stringify(
+data,
+null,
+2
+)
 
 }
 
@@ -741,70 +802,62 @@ content:backup
 
 );
 
-if(res.ok){
+if(response.ok){
 
-alert(
-"✅ Backup pushed"
-);
+alert("✅ Backup Pushed");
 
-}
+}else{
 
-}catch{
-
-alert(
-"❌ Push failed"
-);
+alert("❌ Push Failed");
 
 }
 
+}catch(error){
+
+alert("❌ Network Error");
+
 }
 
+}
 
-async function pullFromGitHub(){
+/* RESTORE BACKUP */
+
+async function restoreBackup(){
 
 try{
 
-const res=
-await fetch(
+const response = await fetch(
 `https://api.github.com/gists/${GIST_ID}`
 );
 
-const gist=
-await res.json();
+const gist = await response.json();
 
-const content=
-gist.files[
-"streak.json"
-].content;
+const content =
+gist.files["streak-data.json"].content;
 
-data=
-JSON.parse(
-content
-);
+data = JSON.parse(content);
 
 localStorage.setItem(
 "yearTracker",
 JSON.stringify(data)
 );
 
-alert(
-"✅ Backup restored"
-);
+alert("✅ Backup Restored");
 
 location.reload();
 
-}
-catch{
+}catch(error){
 
-alert(
-"❌ Restore failed"
-);
+alert("❌ Restore Failed");
 
 }
 
 }
+
+updateProgress();
 
 </script>
 
 </body>
+
 </html>
