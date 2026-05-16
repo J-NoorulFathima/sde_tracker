@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SDE Streak Tracker Pro</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@ color:#8b949e;
 
 .stats{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 margin-bottom:40px;
 }
@@ -97,7 +97,7 @@ font-weight:bold;
 margin:20px 0;
 }
 
-/* CHECKBOX SECTION KEPT SAME */
+/* ========= CHECKBOX SECTION (UNCHANGED) ========= */
 
 .check{
 display:flex;
@@ -110,6 +110,8 @@ width:22px;
 height:22px;
 cursor:pointer;
 }
+
+/* ================================================ */
 
 .progress-container{
 background:#161b22;
@@ -135,7 +137,11 @@ overflow:hidden;
 .progress{
 height:100%;
 width:0%;
-background:linear-gradient(90deg,#58a6ff,#3fb950);
+background:linear-gradient(
+90deg,
+#58a6ff,
+#3fb950
+);
 transition:.4s;
 }
 
@@ -203,8 +209,6 @@ background:orange;
 color:black;
 }
 
-/* PREVIEW MODAL */
-
 .modal{
 display:none;
 position:fixed;
@@ -226,18 +230,14 @@ width:350px;
 border:1px solid #30363d;
 }
 
-.modal-content h2{
-margin-bottom:20px;
-}
-
 .modal-content p{
-margin-bottom:12px;
+margin:12px 0;
 }
 
 .close{
-margin-top:15px;
-background:#58a6ff;
 width:100%;
+margin-top:20px;
+background:#58a6ff;
 color:white;
 }
 
@@ -249,8 +249,11 @@ color:white;
 <div class="container">
 
 <div class="header">
+
 <h1>SDE Streak Tracker</h1>
+
 <p>Zoho Preparation Dashboard</p>
+
 </div>
 
 <div class="stats">
@@ -277,49 +280,60 @@ color:white;
 
 </div>
 
+
 <div class="tasks">
 
 <div class="card">
 <h3>Java + Extra Learning</h3>
-<p>8:30–12:30</p>
+<p>8:30–12:30 PM</p>
 <div class="hours">4 hrs</div>
+
+<!-- UNCHANGED -->
 <div class="check">
 <input type="checkbox" class="task">
 <span>Completed</span>
 </div>
+
 </div>
 
 <div class="card">
 <h3>SQL</h3>
-<p>1:00–3:00</p>
+<p>1:00–3:00 PM</p>
 <div class="hours">2 hrs</div>
+
 <div class="check">
 <input type="checkbox" class="task">
 <span>Completed</span>
 </div>
+
 </div>
 
 <div class="card">
 <h3>DSA</h3>
-<p>5:00–8:00</p>
+<p>5:00–8:00 PM</p>
 <div class="hours">3 hrs</div>
+
 <div class="check">
 <input type="checkbox" class="task">
 <span>Completed</span>
 </div>
+
 </div>
 
 <div class="card">
 <h3>System Design</h3>
-<p>9:00–10:00</p>
+<p>9:00–10:00 PM</p>
 <div class="hours">1 hr</div>
+
 <div class="check">
 <input type="checkbox" class="task">
 <span>Completed</span>
 </div>
+
 </div>
 
 </div>
+
 
 <div class="progress-container">
 
@@ -329,36 +343,46 @@ color:white;
 </div>
 
 <div class="progress-bar">
-<div class="progress" id="progress"></div>
+
+<div class="progress"
+id="progress"></div>
+
 </div>
 
 </div>
+
 
 <div class="heatmap-section">
 
 <h2>365 Day Heatmap</h2>
 
-<div class="heatmap" id="heatmap"></div>
+<div id="heatmap"
+class="heatmap"></div>
 
 <div class="buttons">
 
-<button class="complete" onclick="completeDay()">
+<button class="complete"
+onclick="completeDay()">
 Mark Day Complete
 </button>
 
-<button class="reset" onclick="resetToday()">
+<button class="reset"
+onclick="resetToday()">
 Reset
 </button>
 
-<button class="push">
+<button class="push"
+onclick="pushToGitHub()">
 Push Backup
 </button>
 
-<button class="pull">
+<button class="pull"
+onclick="pullFromGitHub()">
 Restore Backup
 </button>
 
-<button class="preview" onclick="previewData()">
+<button class="preview"
+onclick="previewData()">
 Preview
 </button>
 
@@ -368,7 +392,6 @@ Preview
 
 </div>
 
-<!-- Preview Popup -->
 
 <div class="modal" id="modal">
 
@@ -381,8 +404,11 @@ Preview
 <p id="p3"></p>
 <p id="p4"></p>
 
-<button class="close" onclick="closePreview()">
+<button class="close"
+onclick="closePreview()">
+
 Close
+
 </button>
 
 </div>
@@ -392,13 +418,31 @@ Close
 
 <script>
 
-const tasks=document.querySelectorAll(".task");
+/* =======================
+UPDATE ONLY THESE
+======================= */
 
-const progress=document.getElementById("progress");
+const GITHUB_TOKEN=
+"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";
 
-const percentage=document.getElementById("percentage");
+const GIST_ID=
+"de18a147db1c301e5682ed0f59756e73";
 
-const heatmap=document.getElementById("heatmap");
+/* ======================= */
+
+
+const tasks=
+document.querySelectorAll(".task");
+
+const progress=
+document.getElementById("progress");
+
+const percentage=
+document.getElementById("percentage");
+
+const heatmap=
+document.getElementById("heatmap");
+
 
 let data=
 JSON.parse(
@@ -413,12 +457,13 @@ currentStreak:0,
 longestStreak:0
 };
 
+
 for(let i=1;i<=365;i++){
 
 let box=
 document.createElement("div");
 
-box.classList.add("day");
+box.className="day";
 
 box.id=
 "day-"+i;
@@ -427,22 +472,19 @@ heatmap.appendChild(box);
 
 }
 
+
 data.completedDays.forEach(day=>{
 
-let box=
-document.getElementById(
+document
+.getElementById(
 "day-"+day
-);
-
-if(box){
-
-box.classList.add(
+)
+?.classList.add(
 "completed"
 );
 
-}
-
 });
+
 
 function updateStats(){
 
@@ -457,14 +499,14 @@ data.completedDays.length;
 
 yearPercent.innerText=
 (
-data.completedDays.length
-/365*100
+(data.completedDays.length/365)*100
 ).toFixed(1)
 +"%";
 
 }
 
 updateStats();
+
 
 tasks.forEach(task=>{
 
@@ -476,11 +518,8 @@ let completed=0;
 
 tasks.forEach(t=>{
 
-if(t.checked){
-
+if(t.checked)
 completed++;
-
-}
 
 });
 
@@ -491,12 +530,12 @@ progress.style.width=
 p+"%";
 
 percentage.innerText=
-Math.floor(p)
-+"%";
+Math.floor(p)+"%";
 
 });
 
 });
+
 
 function completeDay(){
 
@@ -515,7 +554,7 @@ allDone=false;
 if(!allDone){
 
 alert(
-"⚠ Complete all tasks first"
+"Complete all tasks first"
 );
 
 return;
@@ -527,34 +566,26 @@ if(
 "Mark today completed?"
 )
 ){
-
 return;
-
 }
-
-const today=
-new Date();
-
-const start=
-new Date(
-today.getFullYear(),
-0,
-0
-);
 
 const day=
 Math.floor(
-(today-start)
-/(1000*60*60*24)
+(new Date()-
+new Date(
+new Date().getFullYear(),
+0,
+0
+))
+/
+(1000*60*60*24)
 );
 
 if(
 !data.completedDays.includes(day)
 ){
 
-data.completedDays.push(
-day
-);
+data.completedDays.push(day);
 
 data.currentStreak++;
 
@@ -591,35 +622,29 @@ alert(
 
 }
 
+
 function resetToday(){
 
 if(
 !confirm(
-"Reset today's tasks?"
+"Reset today?"
 )
 ){
-
 return;
-
 }
 
-tasks.forEach(task=>{
-
+tasks.forEach(
+task=>{
 task.checked=false;
-
-});
-
-progress.style.width=
-"0%";
-
-percentage.innerText=
-"0%";
-
-alert(
-"✅ Reset Successful"
+}
 );
 
+progress.style.width="0%";
+
+percentage.innerText="0%";
+
 }
+
 
 function previewData(){
 
@@ -627,25 +652,23 @@ modal.style.display=
 "flex";
 
 p1.innerText=
-"🔥 Current Streak : "
-+data.currentStreak;
+"🔥 Current Streak: "+
+data.currentStreak;
 
 p2.innerText=
-"🏆 Longest Streak : "
-+data.longestStreak;
+"🏆 Longest Streak: "+
+data.longestStreak;
 
 p3.innerText=
-"📅 Productive Days : "
-+data.completedDays.length;
+"📅 Productive Days: "+
+data.completedDays.length;
 
 p4.innerText=
-"📈 Year Progress : "
-+
+"📈 Progress: "+
 (
-data.completedDays.length
-/365*100
-)
-.toFixed(1)
+(data.completedDays.length/365)
+*100
+).toFixed(1)
 +"%";
 
 }
@@ -654,6 +677,130 @@ function closePreview(){
 
 modal.style.display=
 "none";
+
+}
+
+
+/* GitHub backup */
+
+async function pushToGitHub(){
+
+if(
+GITHUB_TOKEN==="PASTE_TOKEN_HERE"
+){
+
+alert(
+"Add token first"
+);
+
+return;
+}
+
+const backup=
+JSON.stringify(
+data,
+null,
+2
+);
+
+try{
+
+const res=
+await fetch(
+
+`https://api.github.com/gists/${GIST_ID}`,
+
+{
+method:"PATCH",
+
+headers:{
+
+Authorization:
+`token ${GITHUB_TOKEN}`,
+
+"Content-Type":
+"application/json"
+
+},
+
+body:JSON.stringify({
+
+files:{
+
+"streak.json":{
+
+content:backup
+
+}
+
+}
+
+})
+
+}
+
+);
+
+if(res.ok){
+
+alert(
+"✅ Backup pushed"
+);
+
+}
+
+}catch{
+
+alert(
+"❌ Push failed"
+);
+
+}
+
+}
+
+
+async function pullFromGitHub(){
+
+try{
+
+const res=
+await fetch(
+`https://api.github.com/gists/${GIST_ID}`
+);
+
+const gist=
+await res.json();
+
+const content=
+gist.files[
+"streak.json"
+].content;
+
+data=
+JSON.parse(
+content
+);
+
+localStorage.setItem(
+"yearTracker",
+JSON.stringify(data)
+);
+
+alert(
+"✅ Backup restored"
+);
+
+location.reload();
+
+}
+catch{
+
+alert(
+"❌ Restore failed"
+);
+
+}
 
 }
 
