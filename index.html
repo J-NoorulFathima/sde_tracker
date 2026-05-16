@@ -701,6 +701,94 @@
     .stat-value { font-size: 24px; }
     .heatmap-cell { width: 10px; height: 10px; }
   }
+
+  /* History modal */
+  .hist-modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 28px;
+    width: 580px;
+    max-width: 95vw;
+    max-height: 82vh;
+    overflow-y: auto;
+    position: relative;
+  }
+  .hist-modal h2 { font-family: var(--font-display); font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+  .hist-modal h2 span { color: var(--accent); }
+  .hist-subtitle { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+  .hist-list { display: flex; flex-direction: column; gap: 6px; }
+  .hist-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 14px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    transition: all 0.15s;
+  }
+  .hist-row:hover { border-color: var(--border2); }
+  .hist-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .hist-date { font-family: var(--font-mono); font-size: 12px; color: var(--text); min-width: 100px; }
+  .hist-day { font-family: var(--font-mono); font-size: 10px; color: var(--muted); min-width: 28px; }
+  .hist-tags { display: flex; gap: 4px; flex: 1; flex-wrap: wrap; }
+  .hist-tag { font-family: var(--font-mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; border: 1px solid; }
+  .hist-hours { font-family: var(--font-mono); font-size: 11px; color: var(--muted); min-width: 32px; text-align: right; }
+  .hist-edit-btn {
+    font-family: var(--font-mono); font-size: 10px; padding: 4px 10px; border-radius: 4px;
+    border: 1px solid var(--border2); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.15s; flex-shrink: 0;
+  }
+  .hist-edit-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+  .hist-empty { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: center; padding: 36px; }
+  .hist-search {
+    width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px;
+    padding: 9px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--text);
+    outline: none; margin-bottom: 14px; transition: border-color 0.2s;
+  }
+  .hist-search:focus { border-color: var(--accent); }
+  .hist-search::placeholder { color: var(--muted); }
+
+  /* Day edit modal */
+  .day-modal {
+    background: var(--bg2); border: 1px solid var(--border2); border-radius: 16px;
+    padding: 28px; width: 460px; max-width: 95vw; position: relative;
+  }
+  .day-modal h2 { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+  .day-modal-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+  .day-task-row {
+    display: flex; align-items: center; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; transition: opacity 0.15s;
+  }
+  .day-task-row:last-of-type { border-bottom: none; }
+  .day-check {
+    width: 20px; height: 20px; border: 1.5px solid var(--border2); border-radius: 4px;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+  }
+  .day-task-row.day-done .day-check { background: var(--accent); border-color: var(--accent); }
+  .day-check svg { display: none; }
+  .day-task-row.day-done .day-check svg { display: block; }
+  .day-task-name { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--text); flex: 1; }
+  .day-task-time { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+  .day-note-wrap { margin-top: 14px; }
+  .day-note-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .day-note {
+    width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px;
+    padding: 10px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--text);
+    resize: vertical; min-height: 60px; outline: none; transition: border-color 0.2s;
+  }
+  .day-note:focus { border-color: var(--accent); }
+  .day-note::placeholder { color: var(--muted); }
+  .day-save-btn {
+    width: 100%; margin-top: 16px; padding: 11px; background: var(--accent-dim2);
+    border: 1px solid rgba(0,255,136,0.3); border-radius: 8px; color: var(--accent);
+    font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+    cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+  }
+  .day-save-btn:hover { background: rgba(0,255,136,0.2); }
+  .day-del-btn {
+    width: 100%; margin-top: 8px; padding: 9px; background: transparent;
+    border: 1px solid rgba(255,92,92,0.25); border-radius: 8px; color: #ff5c5c;
+    font-family: var(--font-mono); font-size: 11px; cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+  }
+  .day-del-btn:hover { background: rgba(255,92,92,0.08); border-color: rgba(255,92,92,0.5); }
+  .day-view-only { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-align: center; margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -713,6 +801,7 @@
       <p>// DEVELOPER PRODUCTIVITY OS — DAILY CONSISTENCY ENGINE</p>
     </div>
     <div class="header-right">
+      <button class="btn" onclick="openHistory()">☰ History</button>
       <button class="btn" onclick="openPreview()">◈ Preview Analytics</button>
       <button class="btn-primary btn" onclick="markDayComplete()">✓ Mark Day Complete</button>
     </div>
@@ -976,6 +1065,34 @@
   </div>
 </div>
 
+<!-- History Modal -->
+<div class="modal-overlay" id="historyModal">
+  <div class="hist-modal">
+    <button class="modal-close" onclick="closeHistory()">✕</button>
+    <h2>Entry <span>History</span></h2>
+    <p class="hist-subtitle">Click any entry to view or edit. All logged days shown.</p>
+    <input class="hist-search" id="histSearch" type="text" placeholder="Search by date (e.g. 2025-05)..." oninput="renderHistoryList()" />
+    <div class="hist-list" id="histList"></div>
+  </div>
+</div>
+
+<!-- Day Entry Edit Modal -->
+<div class="modal-overlay" id="dayModal">
+  <div class="day-modal">
+    <button class="modal-close" onclick="closeDayModal()">✕</button>
+    <h2 id="dayModalTitle">Day Entry</h2>
+    <div class="day-modal-sub" id="dayModalSub"></div>
+    <div id="dayTaskRows"></div>
+    <div class="day-note-wrap">
+      <div class="day-note-label">Notes / Reflection</div>
+      <textarea class="day-note" id="dayNote" placeholder="What did you learn today? Any blockers?"></textarea>
+    </div>
+    <button class="day-save-btn" id="daySaveBtn" onclick="saveDayEntry()">⬡ Save Entry</button>
+    <button class="day-del-btn" id="dayDelBtn" onclick="deleteDayEntry()">✕ Delete This Entry</button>
+    <div class="day-view-only" id="dayViewOnly"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -987,7 +1104,8 @@ let state = {
   tasks: [false, false, false, false],
   heatmap: {},
   lastCompleted: null,
-  totalHours: 0
+  totalHours: 0,
+  dayEntries: {}
 };
 
 const TASK_HOURS = [4, 2, 3, 1];
@@ -1043,21 +1161,17 @@ function markDayComplete() {
     return;
   }
 
-  // Already completed today?
   if (state.heatmap[key] === 4 && done === 4) {
     showToast('✓ Already marked complete today!');
     return;
   }
 
-  // Determine level
   const level = done === 4 ? 4 : done >= 3 ? 3 : done >= 2 ? 2 : 1;
   state.heatmap[key] = level;
 
-  // Hours
   let hrs = 0;
   state.tasks.forEach((v, i) => { if(v) hrs += TASK_HOURS[i]; });
 
-  // Streak logic
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
   const yKey = yesterday.toISOString().slice(0, 10);
@@ -1075,6 +1189,17 @@ function markDayComplete() {
 
   state.lastCompleted = key;
   if (state.currentStreak > state.longestStreak) state.longestStreak = state.currentStreak;
+
+  // Save day entry
+  if (!state.dayEntries) state.dayEntries = {};
+  const existing = state.dayEntries[key] || {};
+  state.dayEntries[key] = {
+    tasks: [...state.tasks],
+    level,
+    hours: hrs,
+    note: existing.note || '',
+    savedAt: new Date().toISOString()
+  };
 
   saveState();
   renderAll();
@@ -1131,12 +1256,10 @@ function renderHeatmap() {
   const today = new Date();
   const start = new Date(today);
   start.setDate(start.getDate() - 364);
-  // Align to Sunday
   start.setDate(start.getDate() - start.getDay());
 
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   let currentMonth = -1;
-  let weekIdx = 0;
 
   const totalWeeks = 53;
   for (let w = 0; w < totalWeeks; w++) {
@@ -1156,11 +1279,14 @@ function renderHeatmap() {
 
       const dateStr = date.toLocaleDateString('en', {month:'short', day:'numeric', year:'numeric'});
       const lvlTxt = ['No activity','Low','Moderate','High','Full completion'];
-      cell.title = dateStr + ' — ' + lvlTxt[level];
+      cell.title = dateStr + ' — ' + lvlTxt[level] + ' (click to view/edit)';
+
+      const capturedKey = key;
+      const capturedDateStr = dateStr;
+      cell.addEventListener('click', () => openDayModal(capturedKey, capturedDateStr));
 
       col.appendChild(cell);
 
-      // Month label
       if (d === 0 && date.getMonth() !== currentMonth) {
         currentMonth = date.getMonth();
         const lbl = document.createElement('div');
@@ -1239,6 +1365,269 @@ function restoreBackup() {
     showToast('✓ Backup restored successfully!');
   }).catch(() => showToast('✗ Restore failed — check token'));
 }
+
+// ── History Modal ──────────────────────────────────
+const TASK_NAMES = ['Java + Extra Learning', 'SQL', 'DSA', 'System Design'];
+const TASK_TIMES = ['8:30–12:30', '1:00–3:00', '5:00–8:00', '9:00–10:00'];
+const BADGE_COLORS = [
+  {color:'#ff9a3c',border:'rgba(255,154,60,0.35)',bg:'rgba(255,154,60,0.1)'},
+  {color:'#4fa3e0',border:'rgba(79,163,224,0.35)',bg:'rgba(79,163,224,0.1)'},
+  {color:'#00ff88',border:'rgba(0,255,136,0.35)',bg:'rgba(0,255,136,0.08)'},
+  {color:'#c084fc',border:'rgba(192,132,252,0.35)',bg:'rgba(192,132,252,0.08)'}
+];
+const LEVEL_COLORS = ['#1a2230','#0d3320','#1a5c3a','#00cc6a','#00ff88'];
+
+function openHistory() {
+  renderHistoryList();
+  document.getElementById('historyModal').classList.add('show');
+}
+
+function closeHistory() {
+  document.getElementById('historyModal').classList.remove('show');
+}
+
+function renderHistoryList() {
+  const list = document.getElementById('histList');
+  const search = document.getElementById('histSearch').value.trim().toLowerCase();
+
+  if (!state.dayEntries) state.dayEntries = {};
+
+  // Merge heatmap entries that may not have a dayEntries record (legacy)
+  Object.keys(state.heatmap).forEach(k => {
+    if (!state.dayEntries[k]) {
+      state.dayEntries[k] = {
+        tasks: [false, false, false, false],
+        level: state.heatmap[k],
+        hours: 0,
+        note: '',
+        savedAt: k
+      };
+    }
+  });
+
+  const keys = Object.keys(state.dayEntries)
+    .filter(k => state.heatmap[k] > 0)
+    .filter(k => !search || k.includes(search))
+    .sort((a, b) => b.localeCompare(a));
+
+  if (keys.length === 0) {
+    list.innerHTML = '<div class="hist-empty">No entries found.<br>Complete days to see them here.</div>';
+    return;
+  }
+
+  list.innerHTML = keys.map(key => {
+    const entry = state.dayEntries[key];
+    const level = state.heatmap[key] || 0;
+    const dateObj = new Date(key + 'T00:00:00');
+    const dateStr = dateObj.toLocaleDateString('en', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
+    const hrs = entry.hours || 0;
+
+    const taskTags = TASK_NAMES.map((name, i) => {
+      const done = entry.tasks && entry.tasks[i];
+      const c = BADGE_COLORS[i];
+      const abbr = ['Java','SQL','DSA','SysD'][i];
+      if (!done) return `<span class="hist-tag" style="color:${c.color};border-color:${c.border};background:${c.bg};opacity:0.35">${abbr}</span>`;
+      return `<span class="hist-tag" style="color:${c.color};border-color:${c.border};background:${c.bg}">${abbr}</span>`;
+    }).join('');
+
+    const isToday = key === todayKey();
+    return `<div class="hist-row">
+      <div class="hist-dot" style="background:${LEVEL_COLORS[level]}${level===4?';box-shadow:0 0 4px rgba(0,255,136,0.6)':''}"></div>
+      <div class="hist-date">${dateStr}</div>
+      <div class="hist-tags">${taskTags}</div>
+      <div class="hist-hours">${hrs}h</div>
+      <button class="hist-edit-btn" onclick="closeHistory();openDayModal('${key}','${dateStr}')">${isToday ? '✎ Edit' : '✎ Edit'}</button>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('historyModal').addEventListener('click', function(e) {
+  if (e.target === this) closeHistory();
+});
+
+// ── Day Entry Modal ─────────────────────────────────
+let editingKey = null;
+let editTasks = [false, false, false, false];
+
+function openDayModal(key, dateStr) {
+  editingKey = key;
+  if (!state.dayEntries) state.dayEntries = {};
+
+  const entry = state.dayEntries[key] || null;
+  const level = state.heatmap[key] || 0;
+  const isToday = key === todayKey();
+
+  editTasks = entry ? [...(entry.tasks || [false,false,false,false])] : [false,false,false,false];
+
+  document.getElementById('dayModalTitle').textContent = isToday ? 'Today\'s Entry' : 'Day Entry';
+  document.getElementById('dayModalSub').textContent = dateStr + (level > 0 ? ' · Level ' + level + '/4' : ' · No activity logged');
+  document.getElementById('dayNote').value = entry ? (entry.note || '') : '';
+
+  const saveBtn = document.getElementById('daySaveBtn');
+  const delBtn = document.getElementById('dayDelBtn');
+  const viewOnly = document.getElementById('dayViewOnly');
+
+  // Everyone can edit — today or past
+  saveBtn.style.display = 'block';
+  delBtn.style.display = level > 0 ? 'block' : 'none';
+  viewOnly.textContent = '';
+
+  renderDayTaskRows();
+  document.getElementById('dayModal').classList.add('show');
+}
+
+function renderDayTaskRows() {
+  const wrap = document.getElementById('dayTaskRows');
+  wrap.innerHTML = TASK_NAMES.map((name, i) => {
+    const done = editTasks[i];
+    const c = BADGE_COLORS[i];
+    return `<div class="day-task-row${done ? ' day-done' : ''}" onclick="toggleDayTask(${i})">
+      <div class="day-check">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="day-task-name">${name}</div>
+      <div class="day-task-time" style="color:${c.color}">${TASK_TIMES[i]} · ${TASK_HOURS[i]}h</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleDayTask(idx) {
+  editTasks[idx] = !editTasks[idx];
+  renderDayTaskRows();
+}
+
+function saveDayEntry() {
+  const key = editingKey;
+  const isToday = key === todayKey();
+  if (!state.dayEntries) state.dayEntries = {};
+
+  const done = editTasks.filter(Boolean).length;
+  const level = done === 4 ? 4 : done >= 3 ? 3 : done >= 2 ? 2 : done >= 1 ? 1 : 0;
+  let hrs = 0;
+  editTasks.forEach((v, i) => { if(v) hrs += TASK_HOURS[i]; });
+
+  const note = document.getElementById('dayNote').value;
+  const wasLogged = state.heatmap[key] > 0;
+
+  // Update entry
+  state.dayEntries[key] = {
+    tasks: [...editTasks],
+    level,
+    hours: hrs,
+    note,
+    savedAt: new Date().toISOString()
+  };
+
+  if (done > 0) {
+    state.heatmap[key] = level;
+
+    if (!wasLogged) {
+      // Adding a new past entry
+      state.productiveDays++;
+      state.totalHours = (state.totalHours || 0) + hrs;
+      if (isToday) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yKey = yesterday.toISOString().slice(0, 10);
+        if (state.lastCompleted === yKey) state.currentStreak++;
+        else state.currentStreak = 1;
+        if (state.currentStreak > state.longestStreak) state.longestStreak = state.currentStreak;
+        state.lastCompleted = key;
+      }
+    } else {
+      // Editing: adjust hours delta
+      const oldHrs = state.dayEntries[key]?.hours || hrs;
+      state.totalHours = Math.max(0, (state.totalHours || 0) - oldHrs + hrs);
+    }
+
+    // Sync today's tasks with main task panel
+    if (isToday) {
+      state.tasks = [...editTasks];
+      renderAll();
+    }
+  } else {
+    // All unchecked — remove
+    delete state.heatmap[key];
+    delete state.dayEntries[key];
+    if (wasLogged) {
+      state.productiveDays = Math.max(0, state.productiveDays - 1);
+    }
+  }
+
+  saveState();
+  renderHeatmap();
+  renderAll();
+  closeDayModal();
+  showToast(done > 0 ? '✓ Entry saved for ' + key : '✗ Entry removed (no tasks)');
+}
+
+function deleteDayEntry() {
+  const key = editingKey;
+  if (!state.heatmap[key]) { closeDayModal(); return; }
+
+  const oldHrs = (state.dayEntries && state.dayEntries[key]) ? (state.dayEntries[key].hours || 0) : 0;
+  delete state.heatmap[key];
+  if (state.dayEntries) delete state.dayEntries[key];
+  state.productiveDays = Math.max(0, state.productiveDays - 1);
+  state.totalHours = Math.max(0, (state.totalHours || 0) - oldHrs);
+
+  if (state.lastCompleted === key) {
+    const keys = Object.keys(state.heatmap).sort();
+    state.lastCompleted = keys.length ? keys[keys.length - 1] : null;
+  }
+
+  // Recalculate streak from scratch
+  recalcStreak();
+
+  const isToday = key === todayKey();
+  if (isToday) {
+    state.tasks = [false, false, false, false];
+    renderAll();
+  }
+
+  saveState();
+  renderHeatmap();
+  renderAll();
+  closeDayModal();
+  showToast('✗ Entry deleted for ' + key);
+}
+
+function recalcStreak() {
+  const keys = Object.keys(state.heatmap).sort();
+  if (!keys.length) { state.currentStreak = 0; state.longestStreak = 0; return; }
+
+  let maxStreak = 0, cur = 1;
+  for (let i = 1; i < keys.length; i++) {
+    const prev = new Date(keys[i-1] + 'T00:00:00');
+    const curr = new Date(keys[i] + 'T00:00:00');
+    const diff = (curr - prev) / 86400000;
+    if (diff === 1) { cur++; } else { maxStreak = Math.max(maxStreak, cur); cur = 1; }
+  }
+  maxStreak = Math.max(maxStreak, cur);
+  state.longestStreak = maxStreak;
+
+  // Current streak: count backward from today/last
+  const today = todayKey();
+  let streak = 0;
+  let check = new Date(today + 'T00:00:00');
+  while (true) {
+    const k = check.toISOString().slice(0,10);
+    if (state.heatmap[k]) { streak++; check.setDate(check.getDate()-1); }
+    else break;
+  }
+  state.currentStreak = streak;
+}
+
+function closeDayModal() {
+  document.getElementById('dayModal').classList.remove('show');
+  editingKey = null;
+}
+
+document.getElementById('dayModal').addEventListener('click', function(e) {
+  if (e.target === this) closeDayModal();
+});
 
 // Init
 loadState();
