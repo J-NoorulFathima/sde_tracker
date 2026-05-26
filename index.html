@@ -821,60 +821,210 @@
           <div class="progress-fill" id="progressFill" style="width:0%"></div>
         </div>
       </div>
-      <div class="task-list">
-        <div class="task-item" id="task-0" onclick="toggleTask(0)">
-          <div class="task-check">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="task-info">
-            <div class="task-name">Java + Extra Learning</div>
-            <div class="task-meta">8:30 AM – 12:30 PM · Core Java, Advanced Java, APIs, Frameworks</div>
-          </div>
-          <div class="task-badge badge-java">4 HRS</div>
-        </div>
-        <div class="task-item" id="task-1" onclick="toggleTask(1)">
-          <div class="task-check">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="task-info">
-            <div class="task-name">SQL</div>
-            <div class="task-meta">1:00 PM – 3:00 PM · Queries, Joins, Subqueries, PL/SQL, Optimization</div>
-          </div>
-          <div class="task-badge badge-sql">2 HRS</div>
-        </div>
-        <div class="task-item" id="task-2" onclick="toggleTask(2)">
-          <div class="task-check">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="task-info">
-            <div class="task-name">DSA</div>
-            <div class="task-meta">5:00 PM – 8:00 PM · Arrays, Trees, Graphs, DP, Problem Solving</div>
-          </div>
-          <div class="task-badge badge-dsa">3 HRS</div>
-        </div>
-        <div class="task-item" id="task-3" onclick="toggleTask(3)">
-          <div class="task-check">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="task-info">
-            <div class="task-name">System Design</div>
-            <div class="task-meta">9:00 PM – 10:00 PM · Scalability, Distributed Systems, Caching</div>
-          </div>
-          <div class="task-badge badge-sys">1 HR</div>
-        </div>
-      </div>
-      <div class="mark-btn-wrap">
-        <button class="mark-btn" id="markBtn" onclick="markDayComplete()">⬡ Mark Day as Complete</button>
-      </div>
+<div class="task-list">
+
+  <div class="task-item" id="task-0" onclick="toggleTask(0)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
+    <div class="task-info">
+      <div class="task-name">Wake Up + Revision</div>
+      <div class="task-meta">6:00 AM – 6:45 AM · Revise notes, formulas, previous mistakes</div>
+    </div>
+    <div class="task-badge badge-revision">45 MIN</div>
+  </div>
+
+  <div class="task-item" id="task-1" onclick="toggleTask(1)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">Java Class</div>
+      <div class="task-meta">7:00 AM – 8:30 AM · OOP, Collections, JDBC, Exception Handling</div>
+    </div>
+    <div class="task-badge badge-java">1.5 HRS</div>
+  </div>
+
+  <div class="task-item" id="task-2" onclick="toggleTask(2)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">Breakfast + Refresh</div>
+      <div class="task-meta">8:30 AM – 9:00 AM · Relax and prepare for coding session</div>
+    </div>
+    <div class="task-badge badge-break">30 MIN</div>
+  </div>
+
+  <div class="task-item" id="task-3" onclick="toggleTask(3)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">Java Practice Coding</div>
+      <div class="task-meta">9:00 AM – 10:00 AM · Practice Java problems, OOP coding, mini exercises</div>
+    </div>
+    <div class="task-badge badge-java">1 HR</div>
+  </div>
+
+  <div class="task-item" id="task-4" onclick="toggleTask(4)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">Math for DSA</div>
+      <div class="task-meta">10:00 AM – 12:00 PM · Permutations, Probability, Complexity, Logarithms</div>
+    </div>
+    <div class="task-badge badge-math">2 HRS</div>
+  </div>
+
+  <div class="task-item" id="task-5" onclick="toggleTask(5)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">Short Break</div>
+      <div class="task-meta">12:00 PM – 12:15 PM · Relax and refresh</div>
+    </div>
+    <div class="task-badge badge-break">15 MIN</div>
+  </div>
+
+  <div class="task-item" id="task-6" onclick="toggleTask(6)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">DSA Course</div>
+      <div class="task-meta">12:15 PM – 2:15 PM · Arrays, Strings, Trees, Recursion, Graphs</div>
+    </div>
+    <div class="task-badge badge-dsa">2 HRS</div>
+  </div>
+
+  <div class="task-item" id="task-7" onclick="toggleTask(7)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">Lunch + Rest</div>
+      <div class="task-meta">2:15 PM – 3:00 PM · Recharge and relax</div>
+    </div>
+    <div class="task-badge badge-break">45 MIN</div>
+  </div>
+
+  <div class="task-item" id="task-8" onclick="toggleTask(8)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">DSA Problem Solving</div>
+      <div class="task-meta">3:00 PM – 5:00 PM · Solve coding problems and practice patterns</div>
+    </div>
+    <div class="task-badge badge-dsa">2 HRS</div>
+  </div>
+
+  <div class="task-item" id="task-9" onclick="toggleTask(9)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">AI Client Work</div>
+      <div class="task-meta">5:00 PM – 6:00 PM · Editing, rendering, delivery, client tasks</div>
+    </div>
+    <div class="task-badge badge-ai">1 HR</div>
+  </div>
+
+  <div class="task-item" id="task-10" onclick="toggleTask(10)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">Java Practice + Revision</div>
+      <div class="task-meta">6:00 PM – 7:00 PM · Collections, APIs, OOP revision, coding</div>
+    </div>
+    <div class="task-badge badge-java">1 HR</div>
+  </div>
+
+  <div class="task-item" id="task-11" onclick="toggleTask(11)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">Dinner</div>
+      <div class="task-meta">7:00 PM – 7:45 PM · Relax and refresh</div>
+    </div>
+    <div class="task-badge badge-break">45 MIN</div>
+  </div>
+
+  <div class="task-item" id="task-12" onclick="toggleTask(12)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">SQL Class</div>
+      <div class="task-meta">8:00 PM – 9:30 PM · Joins, Subqueries, PL/SQL, Optimization</div>
+    </div>
+    <div class="task-badge badge-sql">1.5 HRS</div>
+  </div>
+
+  <div class="task-item" id="task-13" onclick="toggleTask(13)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">SQL Practice + Resume</div>
+      <div class="task-meta">9:30 PM – 10:00 PM · Practice queries, GitHub, resume updates</div>
+    </div>
+    <div class="task-badge badge-sql">30 MIN</div>
+  </div>
+
+  <div class="task-item" id="task-14" onclick="toggleTask(14)">
+    <div class="task-check">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="task-info">
+      <div class="task-name">Plan Next Day</div>
+      <div class="task-meta">10:00 PM – 10:20 PM · Organize tasks and priorities</div>
+    </div>
+    <div class="task-badge badge-plan">20 MIN</div>
+  </div>
+
+</div>
+
+<div class="mark-btn-wrap">
+  <button class="mark-btn" id="markBtn" onclick="markDayComplete()">
+    ⬡ Mark Day as Complete
+  </button>
+</div>
 
     <!-- Right column -->
     <div class="right-col">
