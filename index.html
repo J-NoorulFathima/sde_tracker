@@ -244,7 +244,7 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 14px 20px;
+    padding: 11px 20px;
     border-bottom: 1px solid var(--border);
     cursor: pointer;
     transition: background 0.15s;
@@ -272,7 +272,7 @@
 
   .task-name {
     font-family: var(--font-display);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--text);
     margin-bottom: 2px;
@@ -289,10 +289,13 @@
     flex-shrink: 0;
   }
 
-  .badge-java { color: #ff9a3c; border-color: rgba(255,154,60,0.3); background: rgba(255,154,60,0.08); }
-  .badge-sql { color: #4fa3e0; border-color: rgba(79,163,224,0.3); background: rgba(79,163,224,0.08); }
-  .badge-dsa { color: var(--accent); border-color: rgba(0,255,136,0.3); background: var(--accent-dim); }
-  .badge-sys { color: #c084fc; border-color: rgba(192,132,252,0.3); background: rgba(192,132,252,0.08); }
+  .badge-java  { color: #ff9a3c; border-color: rgba(255,154,60,0.3);  background: rgba(255,154,60,0.08); }
+  .badge-sql   { color: #4fa3e0; border-color: rgba(79,163,224,0.3);  background: rgba(79,163,224,0.08); }
+  .badge-dsa   { color: var(--accent); border-color: rgba(0,255,136,0.3); background: var(--accent-dim); }
+  .badge-math  { color: #c084fc; border-color: rgba(192,132,252,0.3); background: rgba(192,132,252,0.08); }
+  .badge-ai    { color: #f472b6; border-color: rgba(244,114,182,0.3); background: rgba(244,114,182,0.08); }
+  .badge-prep  { color: #ffb547; border-color: rgba(255,181,71,0.3);  background: rgba(255,181,71,0.08); }
+  .badge-rev   { color: #67e8f9; border-color: rgba(103,232,249,0.3); background: rgba(103,232,249,0.08); }
 
   .mark-btn-wrap { padding: 16px 20px; border-top: 1px solid var(--border); }
 
@@ -384,14 +387,14 @@
     align-items: stretch;
     gap: 0;
     border-bottom: 1px solid var(--border);
-    padding: 10px 16px;
+    padding: 8px 16px;
   }
 
   .sched-item:last-child { border-bottom: none; }
 
   .sched-dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 12px; margin-top: 4px; flex-shrink: 0; }
   .sched-content { flex: 1; }
-  .sched-name { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--text); }
+  .sched-name { font-family: var(--font-display); font-size: 12px; font-weight: 600; color: var(--text); }
   .sched-time { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 1px; }
   .sched-dur { font-family: var(--font-mono); font-size: 10px; font-weight: 700; margin-top: 2px; }
 
@@ -428,7 +431,6 @@
   .heatmap-cell.l3 { background: #00cc6a; }
   .heatmap-cell.l4 { background: var(--accent); box-shadow: 0 0 4px rgba(0,255,136,0.6); }
 
-  /* ── NEW: empty past day — subtle dashed ring to hint it's clickable ── */
   .heatmap-cell.past-empty {
     background: #1a2230;
     outline: 1px dashed rgba(255,255,255,0.12);
@@ -636,14 +638,14 @@
 
   .day-modal {
     background: var(--bg2); border: 1px solid var(--border2); border-radius: 16px;
-    padding: 28px; width: 460px; max-width: 95vw; position: relative;
+    padding: 28px; width: 500px; max-width: 95vw; max-height: 88vh; overflow-y: auto; position: relative;
   }
 
   .day-modal h2 { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
   .day-modal-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 20px; }
 
   .day-task-row {
-    display: flex; align-items: center; gap: 12px; padding: 12px 0;
+    display: flex; align-items: center; gap: 12px; padding: 10px 0;
     border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; transition: opacity 0.15s;
   }
 
@@ -726,7 +728,7 @@
 
   .sched-edit-modal {
     background: var(--bg2); border: 1px solid var(--border2); border-radius: 16px;
-    padding: 28px; width: 520px; max-width: 95vw; max-height: 88vh; overflow-y: auto; position: relative;
+    padding: 28px; width: 560px; max-width: 95vw; max-height: 88vh; overflow-y: auto; position: relative;
   }
 
   .sched-edit-modal h2 { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
@@ -761,6 +763,11 @@
   }
 
   .se-reset-btn:hover { color: var(--text); border-color: var(--border2); }
+
+  /* Break / non-study row styling */
+  .task-item.break-row { opacity: 0.45; pointer-events: none; cursor: default; }
+  .task-item.break-row .task-check { display: none; }
+  .sched-item.break-row .sched-dot { opacity: 0.4; }
 </style>
 </head>
 <body>
@@ -806,7 +813,7 @@
   <!-- Main grid -->
   <div class="main-grid">
 
-    <!-- Tasks -->
+    <!-- Tasks panel — 10 trackable study blocks -->
     <div class="panel">
       <div class="panel-header">
         <span class="panel-title">// Daily Tasks</span>
@@ -821,68 +828,15 @@
           <div class="progress-fill" id="progressFill" style="width:0%"></div>
         </div>
       </div>
- <div class="task-list">
-        <div class="task-item" id="task-0" onclick="toggleTask(0)">
-          <div class="task-check">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="task-info">
-            <div class="task-name">Java + Extra Learning</div>
-            <div class="task-meta">8:30 AM – 12:30 PM · Core Java, Advanced Java, APIs, Frameworks</div>
-          </div>
-          <div class="task-badge badge-java">4 HRS</div>
-        </div>
-        <div class="task-item" id="task-1" onclick="toggleTask(1)">
-          <div class="task-check">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="task-info">
-            <div class="task-name">SQL</div>
-            <div class="task-meta">1:00 PM – 3:00 PM · Queries, Joins, Subqueries, PL/SQL, Optimization</div>
-          </div>
-          <div class="task-badge badge-sql">2 HRS</div>
-        </div>
-        <div class="task-item" id="task-2" onclick="toggleTask(2)">
-          <div class="task-check">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="task-info">
-            <div class="task-name">DSA</div>
-            <div class="task-meta">5:00 PM – 8:00 PM · Arrays, Trees, Graphs, DP, Problem Solving</div>
-          </div>
-          <div class="task-badge badge-dsa">3 HRS</div>
-        </div>
-        <div class="task-item" id="task-3" onclick="toggleTask(3)">
-          <div class="task-check">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="task-info">
-            <div class="task-name">System Design</div>
-            <div class="task-meta">9:00 PM – 10:00 PM · Scalability, Distributed Systems, Caching</div>
-          </div>
-          <div class="task-badge badge-sys">1 HR</div>
-        </div>
+
+      <div class="task-list" id="taskListEl">
+        <!-- Rendered by JS via syncTaskNamesFromSchedule -->
       </div>
+
       <div class="mark-btn-wrap">
         <button class="mark-btn" id="markBtn" onclick="markDayComplete()">⬡ Mark Day as Complete</button>
       </div>
-    </div>  
-
-</div>
-
-<div class="mark-btn-wrap">
-  <button class="mark-btn" id="markBtn" onclick="markDayComplete()">
-    ⬡ Mark Day as Complete
-  </button>
-</div>
+    </div>
 
     <!-- Right column -->
     <div class="right-col">
@@ -1033,7 +987,7 @@
   <div class="sched-edit-modal">
     <button class="modal-close" onclick="closeSchedEditor()">✕</button>
     <h2>Edit <span style="color:var(--accent)">Schedule</span></h2>
-    <div class="se-sub">Customize your 4 daily study blocks — name, time, duration & description.</div>
+    <div class="se-sub">Customize your daily study blocks — name, time, duration & description.</div>
     <div id="seBlocks"></div>
     <button class="se-save-btn" onclick="saveSchedule()">⬡ Save Schedule</button>
     <button class="se-reset-btn" onclick="resetSchedule()">↺ Reset to Default</button>
@@ -1071,29 +1025,69 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ── DEFAULT SCHEDULE (10 trackable study blocks, breaks excluded from task tracking) ─────
+const DEFAULT_SCHEDULE = [
+  { name: 'Wake Up + Revise Notes',        timeStart: '6:00 AM',  timeEnd: '6:45 AM',  hours: 0.75, desc: 'Review previous day notes, plan the day',           color: '#67e8f9', badge: 'badge-rev'  },
+  { name: 'Java Class',                    timeStart: '7:00 AM',  timeEnd: '8:30 AM',  hours: 1.5,  desc: 'Core Java, OOP fundamentals, class lecture',         color: '#ff9a3c', badge: 'badge-java' },
+  { name: 'Java Practice Coding',          timeStart: '9:00 AM',  timeEnd: '10:00 AM', hours: 1,    desc: 'Hands-on coding exercises from class',               color: '#ff9a3c', badge: 'badge-java' },
+  { name: 'Math for DSA',                  timeStart: '10:00 AM', timeEnd: '12:00 PM', hours: 2,    desc: 'Discrete math, complexity, counting, recursion',     color: '#c084fc', badge: 'badge-math' },
+  { name: 'DSA Course',                    timeStart: '12:15 PM', timeEnd: '2:15 PM',  hours: 2,    desc: 'Arrays, Trees, Graphs, DP — structured course',      color: '#00ff88', badge: 'badge-dsa'  },
+  { name: 'DSA Problem Solving',           timeStart: '3:00 PM',  timeEnd: '5:00 PM',  hours: 2,    desc: 'LeetCode / competitive problems practice',           color: '#00ff88', badge: 'badge-dsa'  },
+  { name: 'AI Client Work',                timeStart: '5:00 PM',  timeEnd: '6:00 PM',  hours: 1,    desc: 'Client project tasks, AI tools, deliverables',      color: '#f472b6', badge: 'badge-ai'   },
+  { name: 'Java Practice + OOP/Collections', timeStart: '6:00 PM', timeEnd: '7:00 PM', hours: 1,   desc: 'OOP design patterns, Collections framework',         color: '#ff9a3c', badge: 'badge-java' },
+  { name: 'SQL Class',                     timeStart: '8:00 PM',  timeEnd: '9:30 PM',  hours: 1.5, desc: 'SQL queries, joins, subqueries, PL/SQL',             color: '#4fa3e0', badge: 'badge-sql'  },
+  { name: 'SQL Practice + Resume Prep',    timeStart: '9:30 PM',  timeEnd: '10:20 PM', hours: 0.75, desc: 'SQL practice, resume updates, GitHub, HR prep',     color: '#ffb547', badge: 'badge-prep' }
+];
+
+// Full schedule including breaks (for the schedule panel display only)
+const FULL_DAY_SCHEDULE = [
+  { name: 'Wake Up + Revise Notes',        timeStart: '6:00 AM',  timeEnd: '6:45 AM',  hours: 0.75, desc: 'Review previous day notes',          color: '#67e8f9', isBreak: false },
+  { name: 'Java Class',                    timeStart: '7:00 AM',  timeEnd: '8:30 AM',  hours: 1.5,  desc: 'Core Java lecture',                  color: '#ff9a3c', isBreak: false },
+  { name: '— Breakfast',                   timeStart: '8:30 AM',  timeEnd: '9:00 AM',  hours: 0.5,  desc: 'Breakfast break',                    color: '#3a4255', isBreak: true  },
+  { name: 'Java Practice Coding',          timeStart: '9:00 AM',  timeEnd: '10:00 AM', hours: 1,    desc: 'Hands-on coding practice',           color: '#ff9a3c', isBreak: false },
+  { name: 'Math for DSA',                  timeStart: '10:00 AM', timeEnd: '12:00 PM', hours: 2,    desc: 'Discrete math & complexity',         color: '#c084fc', isBreak: false },
+  { name: '— Break',                       timeStart: '12:00 PM', timeEnd: '12:15 PM', hours: 0.25, desc: 'Short break',                        color: '#3a4255', isBreak: true  },
+  { name: 'DSA Course',                    timeStart: '12:15 PM', timeEnd: '2:15 PM',  hours: 2,    desc: 'Structured DSA course',              color: '#00ff88', isBreak: false },
+  { name: '— Lunch + Rest',                timeStart: '2:15 PM',  timeEnd: '3:00 PM',  hours: 0.75, desc: 'Lunch and short rest',               color: '#3a4255', isBreak: true  },
+  { name: 'DSA Problem Solving',           timeStart: '3:00 PM',  timeEnd: '5:00 PM',  hours: 2,    desc: 'LeetCode practice',                  color: '#00ff88', isBreak: false },
+  { name: 'AI Client Work',                timeStart: '5:00 PM',  timeEnd: '6:00 PM',  hours: 1,    desc: 'Client project work',                color: '#f472b6', isBreak: false },
+  { name: 'Java Practice + OOP/Collections', timeStart: '6:00 PM', timeEnd: '7:00 PM', hours: 1,   desc: 'OOP & Collections deep dive',        color: '#ff9a3c', isBreak: false },
+  { name: '— Dinner',                      timeStart: '7:00 PM',  timeEnd: '7:45 PM',  hours: 0.75, desc: 'Dinner break',                       color: '#3a4255', isBreak: true  },
+  { name: 'SQL Class',                     timeStart: '8:00 PM',  timeEnd: '9:30 PM',  hours: 1.5,  desc: 'SQL lecture',                        color: '#4fa3e0', isBreak: false },
+  { name: 'SQL Practice + Resume Prep',    timeStart: '9:30 PM',  timeEnd: '10:20 PM', hours: 0.75, desc: 'SQL practice + HR / GitHub prep',    color: '#ffb547', isBreak: false },
+  { name: '— Sleep',                       timeStart: '10:30 PM', timeEnd: '6:00 AM',  hours: 0,    desc: 'Rest & recover',                     color: '#3a4255', isBreak: true  }
+];
+
 // ── State ────────────────────────────────────────────
 let state = {
   currentStreak: 0,
   longestStreak: 0,
   productiveDays: 0,
-  tasks: [false, false, false, false],
+  tasks: new Array(DEFAULT_SCHEDULE.length).fill(false),
   heatmap: {},
   lastCompleted: null,
   totalHours: 0,
   dayEntries: {}
 };
 
+const TASK_COUNT = DEFAULT_SCHEDULE.length; // 10
+
 function loadState() {
   try {
-    const saved = localStorage.getItem('sde_streak_pro');
-    if (saved) state = { ...state, ...JSON.parse(saved) };
+    const saved = localStorage.getItem('sde_streak_pro_v2');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Ensure tasks array matches current task count
+      if (!parsed.tasks || parsed.tasks.length !== TASK_COUNT) {
+        parsed.tasks = new Array(TASK_COUNT).fill(false);
+      }
+      state = { ...state, ...parsed };
+    }
   } catch(e) {}
 }
 
 function saveState() {
-  try {
-    localStorage.setItem('sde_streak_pro', JSON.stringify(state));
-  } catch(e) {}
+  try { localStorage.setItem('sde_streak_pro_v2', JSON.stringify(state)); } catch(e) {}
 }
 
 function showToast(msg) {
@@ -1103,9 +1097,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-function todayKey() {
-  return new Date().toISOString().slice(0, 10);
-}
+function todayKey() { return new Date().toISOString().slice(0, 10); }
 
 function toggleTask(idx) {
   const key = todayKey();
@@ -1118,7 +1110,7 @@ function toggleTask(idx) {
 
 function updateProgress() {
   const done = state.tasks.filter(Boolean).length;
-  const pct = Math.round((done / 4) * 100);
+  const pct = Math.round((done / TASK_COUNT) * 100);
   document.getElementById('progressPct').textContent = pct + '%';
   document.getElementById('progressFill').style.width = pct + '%';
 }
@@ -1128,9 +1120,10 @@ function markDayComplete() {
   const done = state.tasks.filter(Boolean).length;
 
   if (done === 0) { showToast('✗ Complete at least one task first!'); return; }
-  if (state.heatmap[key] === 4 && done === 4) { showToast('✓ Already marked complete today!'); return; }
+  if (state.heatmap[key] === 4 && done === TASK_COUNT) { showToast('✓ Already marked complete today!'); return; }
 
-  const level = done === 4 ? 4 : done >= 3 ? 3 : done >= 2 ? 2 : 1;
+  // Level: 1–3 partial, 4 = all 10 done
+  const level = done === TASK_COUNT ? 4 : done >= 7 ? 3 : done >= 4 ? 2 : 1;
   state.heatmap[key] = level;
 
   let hrs = 0;
@@ -1168,7 +1161,7 @@ function markDayComplete() {
   saveState();
   renderAll();
   renderHeatmap();
-  showToast(level === 4 ? '🎉 Perfect day! Streak: ' + state.currentStreak : '✓ Day logged! Keep going!');
+  showToast(level === 4 ? '🎉 Perfect day! All 10 tasks done! Streak: ' + state.currentStreak : '✓ Day logged! Keep going!');
 }
 
 function renderAll() {
@@ -1185,7 +1178,7 @@ function renderAll() {
   document.getElementById('streakBig').textContent = state.currentStreak;
   document.getElementById('sLongest').textContent = state.longestStreak + ' days';
   document.getElementById('sProd').textContent = state.productiveDays + ' days';
-  document.getElementById('sHours').textContent = (state.totalHours || 0) + 'h';
+  document.getElementById('sHours').textContent = (state.totalHours || 0).toFixed(1) + 'h';
 
   const lastD = state.lastCompleted ? new Date(state.lastCompleted).toLocaleDateString('en', {month:'short',day:'numeric'}) : '—';
   document.getElementById('sLast').textContent = lastD;
@@ -1202,7 +1195,8 @@ function renderAll() {
   document.getElementById('heatmapYear').textContent = now.getFullYear();
 
   state.tasks.forEach((v, i) => {
-    document.getElementById('task-' + i).classList.toggle('done', v);
+    const el = document.getElementById('task-' + i);
+    if (el) el.classList.toggle('done', v);
   });
   updateProgress();
 }
@@ -1260,7 +1254,6 @@ function renderHeatmap() {
       if (level > 0) {
         cell.classList.add('l' + level);
       } else if (!isFuture) {
-        // ── FIX: past/today empty days get a subtle dashed style ──
         cell.classList.add('past-empty');
       }
 
@@ -1272,7 +1265,6 @@ function renderHeatmap() {
         continue;
       }
 
-      // ── FIX: ALL non-future days open the modal — with or without an entry ──
       const capturedKey = key;
       const capturedDateStr = date.toLocaleDateString('en', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
       const hasEntry = level > 0;
@@ -1286,7 +1278,6 @@ function renderHeatmap() {
       });
 
       col.appendChild(cell);
-
       if (date.getDate() === 1) monthPositions[w] = date.getMonth();
     }
 
@@ -1316,10 +1307,10 @@ function openPreview() {
   document.getElementById('mLongest').textContent = state.longestStreak;
   document.getElementById('mProd').textContent = state.productiveDays;
   document.getElementById('mYear').textContent = pct + '%';
-  document.getElementById('mHours').textContent = (state.totalHours || 0) + 'h';
+  document.getElementById('mHours').textContent = (state.totalHours || 0).toFixed(1) + 'h';
 
   const done = state.tasks.filter(Boolean).length;
-  document.getElementById('mToday').textContent = Math.round(done / 4 * 100) + '%';
+  document.getElementById('mToday').textContent = Math.round(done / TASK_COUNT * 100) + '%';
 
   document.getElementById('previewModal').classList.add('show');
 }
@@ -1366,13 +1357,6 @@ function restoreBackup() {
 }
 
 // ── Schedule helpers ─────────────────────────────────
-const DEFAULT_SCHEDULE = [
-  { name: 'Java + Extra Learning', timeStart: '8:30 AM', timeEnd: '12:30 PM', hours: 4, desc: 'Core Java, Advanced Java, APIs, Frameworks', color: '#ff9a3c' },
-  { name: 'SQL',                   timeStart: '1:00 PM',  timeEnd: '3:00 PM',  hours: 2, desc: 'Queries, Joins, Subqueries, PL/SQL, Optimization', color: '#4fa3e0' },
-  { name: 'DSA',                   timeStart: '5:00 PM',  timeEnd: '8:00 PM',  hours: 3, desc: 'Arrays, Trees, Graphs, DP, Problem Solving',       color: '#00ff88' },
-  { name: 'System Design',         timeStart: '9:00 PM',  timeEnd: '10:00 PM', hours: 1, desc: 'Scalability, Distributed Systems, Caching',         color: '#c084fc' }
-];
-
 function getSchedule() {
   if (!state.schedule || !state.schedule.length) return DEFAULT_SCHEDULE;
   return state.schedule;
@@ -1380,7 +1364,23 @@ function getSchedule() {
 
 function getTaskHours()  { return getSchedule().map(s => Number(s.hours)); }
 function getTaskNames()  { return getSchedule().map(s => s.name); }
-function getTaskTimes()  { return getSchedule().map(s => s.timeStart.replace(' AM','').replace(' PM','') + '–' + s.timeEnd.replace(' AM','').replace(' PM','')); }
+
+// ── Build task list HTML ─────────────────────────────
+function buildTaskListHTML(sched) {
+  return sched.map((s, i) => `
+    <div class="task-item" id="task-${i}" onclick="toggleTask(${i})">
+      <div class="task-check">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="task-info">
+        <div class="task-name">${s.name}</div>
+        <div class="task-meta">${s.timeStart} – ${s.timeEnd} · ${s.desc}</div>
+      </div>
+      <div class="task-badge ${s.badge || 'badge-dsa'}">${s.hours % 1 === 0 ? s.hours + ' HR' + (s.hours !== 1 ? 'S' : '') : s.hours + ' HR'}</div>
+    </div>`).join('');
+}
 
 // ── History Modal ────────────────────────────────────
 function openHistory() { renderHistoryList(); document.getElementById('historyModal').classList.add('show'); }
@@ -1394,7 +1394,7 @@ function renderHistoryList() {
 
   Object.keys(state.heatmap).forEach(k => {
     if (!state.dayEntries[k]) {
-      state.dayEntries[k] = { tasks: [false,false,false,false], level: state.heatmap[k], hours: 0, note: '', savedAt: k };
+      state.dayEntries[k] = { tasks: new Array(TASK_COUNT).fill(false), level: state.heatmap[k], hours: 0, note: '', savedAt: k };
     }
   });
 
@@ -1415,10 +1415,10 @@ function renderHistoryList() {
     const level = state.heatmap[key] || 0;
     const dateObj = new Date(key + 'T00:00:00');
     const dateStr = dateObj.toLocaleDateString('en', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
-    const hrs = entry.hours || 0;
+    const hrs = (entry.hours || 0).toFixed(1);
     const names = getTaskNames();
     const sched = getSchedule();
-    const abbrs = names.map(n => n.split(/[\s+]/)[0].slice(0,4));
+    const abbrs = names.map(n => n.split(/[\s+]/)[0].slice(0,4).toUpperCase());
 
     const taskTags = names.map((name, i) => {
       const done = entry.tasks && entry.tasks[i];
@@ -1426,7 +1426,7 @@ function renderHistoryList() {
       const abbr = abbrs[i];
       const border = color + '55';
       const bg = color + '1a';
-      return `<span class="hist-tag" style="color:${color};border-color:${border};background:${bg};opacity:${done ? 1 : 0.35}">${abbr}</span>`;
+      return `<span class="hist-tag" style="color:${color};border-color:${border};background:${bg};opacity:${done ? 1 : 0.3}">${abbr}</span>`;
     }).join('');
 
     return `<div class="hist-row">
@@ -1445,7 +1445,7 @@ document.getElementById('historyModal').addEventListener('click', function(e) {
 
 // ── Day Entry Modal ──────────────────────────────────
 let editingKey = null;
-let editTasks = [false, false, false, false];
+let editTasks = new Array(TASK_COUNT).fill(false);
 
 function openDayModal(key, dateStr) {
   editingKey = key;
@@ -1455,12 +1455,12 @@ function openDayModal(key, dateStr) {
   const level = state.heatmap[key] || 0;
   const isToday = key === todayKey();
 
-  // ── FIX: initialise editTasks from existing entry OR all-false for new day ──
-  editTasks = entry ? [...(entry.tasks || [false,false,false,false])] : [false,false,false,false];
+  editTasks = entry
+    ? [...(entry.tasks && entry.tasks.length === TASK_COUNT ? entry.tasks : new Array(TASK_COUNT).fill(false))]
+    : new Array(TASK_COUNT).fill(false);
 
   document.getElementById('dayModalTitle').textContent = isToday ? "Today's Entry" : 'Day Entry';
 
-  // ── FIX: show "No entry yet — add one below" hint for empty past days ──
   const levelHint = level > 0
     ? ' · Level ' + level + '/4'
     : ' · No entry yet — add one below';
@@ -1477,21 +1477,17 @@ function openDayModal(key, dateStr) {
 
 function renderDayTaskRows() {
   const wrap = document.getElementById('dayTaskRows');
-  const names = getTaskNames();
-  const times = getTaskTimes();
-  const hours = getTaskHours();
   const sched = getSchedule();
-  wrap.innerHTML = names.map((name, i) => {
+  wrap.innerHTML = sched.map((s, i) => {
     const done = editTasks[i];
-    const color = sched[i] ? sched[i].color : '#00ff88';
     return `<div class="day-task-row${done ? ' day-done' : ''}" onclick="toggleDayTask(${i})">
       <div class="day-check">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M2 6L5 9L10 3" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="day-task-name">${name}</div>
-      <div class="day-task-time" style="color:${color}">${times[i]} · ${hours[i]}h</div>
+      <div class="day-task-name">${s.name}</div>
+      <div class="day-task-time" style="color:${s.color}">${s.timeStart}–${s.timeEnd} · ${s.hours}h</div>
     </div>`;
   }).join('');
 }
@@ -1507,7 +1503,7 @@ function saveDayEntry() {
   if (!state.dayEntries) state.dayEntries = {};
 
   const done = editTasks.filter(Boolean).length;
-  const level = done === 4 ? 4 : done >= 3 ? 3 : done >= 2 ? 2 : done >= 1 ? 1 : 0;
+  const level = done === TASK_COUNT ? 4 : done >= 7 ? 3 : done >= 4 ? 2 : done >= 1 ? 1 : 0;
   const TASK_HOURS = getTaskHours();
   let hrs = 0;
   editTasks.forEach((v, i) => { if(v) hrs += TASK_HOURS[i]; });
@@ -1521,7 +1517,6 @@ function saveDayEntry() {
     state.dayEntries[key] = { tasks: [...editTasks], level, hours: hrs, note, savedAt: new Date().toISOString() };
 
     if (!wasLogged) {
-      // Brand-new entry (past or today)
       state.productiveDays++;
       state.totalHours = (state.totalHours || 0) + hrs;
 
@@ -1533,19 +1528,16 @@ function saveDayEntry() {
         if (state.currentStreak > state.longestStreak) state.longestStreak = state.currentStreak;
         state.lastCompleted = key;
       } else {
-        // Past day added retroactively — full recalc
         recalcStreak();
         recalcProductiveDays();
       }
     } else {
-      // Editing existing — adjust hours delta
       state.totalHours = Math.max(0, (state.totalHours || 0) - oldHrs + hrs);
     }
 
     if (isToday) { state.tasks = [...editTasks]; }
 
   } else {
-    // No tasks ticked → remove entry
     delete state.heatmap[key];
     delete state.dayEntries[key];
     if (wasLogged) {
@@ -1557,7 +1549,7 @@ function saveDayEntry() {
       }
       recalcStreak();
     }
-    if (isToday) state.tasks = [false,false,false,false];
+    if (isToday) state.tasks = new Array(TASK_COUNT).fill(false);
   }
 
   saveState();
@@ -1585,7 +1577,7 @@ function deleteDayEntry() {
   recalcStreak();
 
   if (key === todayKey()) {
-    state.tasks = [false,false,false,false];
+    state.tasks = new Array(TASK_COUNT).fill(false);
     renderAll();
   }
 
@@ -1621,11 +1613,8 @@ function recalcStreak() {
 }
 
 function recalcProductiveDays() {
-  // Count unique days in heatmap that belong to current year
   const year = new Date().getFullYear().toString();
   state.productiveDays = Object.keys(state.heatmap).filter(k => k.startsWith(year)).length;
-
-  // Recalculate total hours from dayEntries
   if (state.dayEntries) {
     state.totalHours = Object.entries(state.dayEntries)
       .filter(([k]) => state.heatmap[k] > 0)
@@ -1644,34 +1633,34 @@ document.getElementById('dayModal').addEventListener('click', function(e) {
 
 // ── Schedule Panel ───────────────────────────────────
 function renderSchedPanel() {
-  const sched = getSchedule();
   const list = document.getElementById('schedList');
   if (!list) return;
-  const totalHrs = sched.reduce((s, x) => s + Number(x.hours), 0);
-  document.getElementById('schedTotalHrs').textContent = totalHrs + ' HRS TOTAL';
 
-  list.innerHTML = sched.map(s => `
-    <div class="sched-item">
+  // Use full day schedule (with breaks) for the side panel display
+  const display = FULL_DAY_SCHEDULE;
+  const studyHrs = DEFAULT_SCHEDULE.reduce((s, x) => s + Number(x.hours), 0);
+  document.getElementById('schedTotalHrs').textContent = studyHrs.toFixed(1) + ' HRS STUDY';
+
+  list.innerHTML = display.map(s => `
+    <div class="sched-item${s.isBreak ? ' break-row' : ''}">
       <div class="sched-dot" style="background:${s.color}"></div>
       <div class="sched-content">
-        <div class="sched-name">${s.name}</div>
+        <div class="sched-name" style="color:${s.isBreak ? 'var(--muted)' : 'var(--text)'}">${s.name}</div>
         <div class="sched-time">${s.timeStart} – ${s.timeEnd}</div>
-        <div class="sched-dur" style="color:${s.color}">${s.hours} hour${s.hours != 1 ? 's' : ''}</div>
+        ${!s.isBreak ? `<div class="sched-dur" style="color:${s.color}">${s.hours}h</div>` : ''}
       </div>
     </div>`).join('');
 
-  syncTaskNamesFromSchedule(sched);
-}
+  // Rebuild task list HTML from current schedule
+  const taskSched = getSchedule();
+  document.getElementById('taskListEl').innerHTML = buildTaskListHTML(taskSched);
 
-function syncTaskNamesFromSchedule(sched) {
-  sched.forEach((s, i) => {
-    const nameEl = document.querySelector('#task-' + i + ' .task-name');
-    const metaEl = document.querySelector('#task-' + i + ' .task-meta');
-    const badgeEl = document.querySelector('#task-' + i + ' .task-badge');
-    if (nameEl) nameEl.textContent = s.name;
-    if (metaEl) metaEl.textContent = s.timeStart + ' – ' + s.timeEnd + ' · ' + s.desc;
-    if (badgeEl) badgeEl.textContent = s.hours + ' HR' + (s.hours != 1 ? 'S' : '');
+  // Restore task checked states
+  state.tasks.forEach((v, i) => {
+    const el = document.getElementById('task-' + i);
+    if (el) el.classList.toggle('done', v);
   });
+  updateProgress();
 }
 
 function openSchedConfirm() { document.getElementById('schedConfirmModal').classList.add('show'); }
@@ -1688,28 +1677,28 @@ function openSchedEditor() {
     <div class="se-block">
       <div class="se-block-header">
         <div class="se-color-dot" style="background:${s.color}"></div>
-        <span class="se-block-label">Block ${i+1}</span>
+        <span class="se-block-label">Block ${i+1} — ${s.name}</span>
       </div>
       <div class="se-row full">
         <div>
           <div class="se-field-label">Subject Name</div>
-          <input class="se-input" id="se-name-${i}" value="${s.name}" placeholder="e.g. Java + Extra Learning" />
+          <input class="se-input" id="se-name-${i}" value="${s.name}" placeholder="e.g. Java Class" />
         </div>
       </div>
       <div class="se-row">
         <div>
           <div class="se-field-label">Start Time</div>
-          <input class="se-input" id="se-start-${i}" value="${s.timeStart}" placeholder="8:30 AM" />
+          <input class="se-input" id="se-start-${i}" value="${s.timeStart}" placeholder="6:00 AM" />
         </div>
         <div>
           <div class="se-field-label">End Time</div>
-          <input class="se-input" id="se-end-${i}" value="${s.timeEnd}" placeholder="12:30 PM" />
+          <input class="se-input" id="se-end-${i}" value="${s.timeEnd}" placeholder="8:30 AM" />
         </div>
       </div>
       <div class="se-row">
         <div>
           <div class="se-field-label">Duration (hours)</div>
-          <input class="se-input" id="se-hrs-${i}" type="number" min="0.5" max="12" step="0.5" value="${s.hours}" />
+          <input class="se-input" id="se-hrs-${i}" type="number" min="0.25" max="12" step="0.25" value="${s.hours}" />
         </div>
         <div>
           <div class="se-field-label">Accent Color</div>
@@ -1736,12 +1725,13 @@ document.getElementById('schedEditModal').addEventListener('click', function(e) 
 function saveSchedule() {
   const sched = getSchedule();
   const newSched = sched.map((s, i) => ({
-    name:      document.getElementById('se-name-'  + i).value.trim()   || s.name,
-    timeStart: document.getElementById('se-start-' + i).value.trim()   || s.timeStart,
-    timeEnd:   document.getElementById('se-end-'   + i).value.trim()   || s.timeEnd,
-    hours:     parseFloat(document.getElementById('se-hrs-' + i).value) || s.hours,
-    desc:      document.getElementById('se-desc-'  + i).value.trim()   || s.desc,
-    color:     document.getElementById('se-color-' + i).value          || s.color
+    name:      document.getElementById('se-name-'  + i).value.trim()    || s.name,
+    timeStart: document.getElementById('se-start-' + i).value.trim()    || s.timeStart,
+    timeEnd:   document.getElementById('se-end-'   + i).value.trim()    || s.timeEnd,
+    hours:     parseFloat(document.getElementById('se-hrs-'   + i).value) || s.hours,
+    desc:      document.getElementById('se-desc-'  + i).value.trim()    || s.desc,
+    color:     document.getElementById('se-color-' + i).value           || s.color,
+    badge:     s.badge || 'badge-dsa'
   }));
   state.schedule = newSched;
   saveState();
